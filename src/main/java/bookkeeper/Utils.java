@@ -317,7 +317,7 @@ public class Utils {
                     ArrayList<Integer> iarr = new ArrayList<>();
                     cust_map.forEach((K, V) -> {
                         if(K == 0)  return;
-                        if(V.getEmp().getId().equals((int)eid.getValue())){
+                        if(V.getEmpId().equals((int)eid.getValue())){
                             iarr.add(V.getId());
                             arr.add(V);
                         }
@@ -360,7 +360,7 @@ public class Utils {
                     ArrayList<Integer> iarr = new ArrayList<>();
                     cust_map.forEach((K, V) -> {
                         if(K == 0)  return;
-                        if(V.getEmp().getId().equals((int)eid.getValue())){
+                        if(V.emp().getId().equals((int)eid.getValue())){
                             iarr.add(V.getId());
                             arr.add(V);
                         }
@@ -391,7 +391,7 @@ public class Utils {
         cid.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue != null){
                 if(!newValue.equals(0))
-                    eid.setValue(cust_map.get(Integer.valueOf(newValue.toString())).getEmp().getId());
+                    eid.setValue(cust_map.get(Integer.valueOf(newValue.toString())).emp().getId());
                 cid.setValue(newValue);
                 cname.setValue(cust_map.get(Integer.valueOf(newValue.toString())));
             }
@@ -417,7 +417,7 @@ public class Utils {
         cname.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue != null){
                 if(!((Customer)newValue).getId().equals(0))
-                    eid.setValue(((Customer)newValue).getEmp().getId());
+                    eid.setValue(((Customer)newValue).emp().getId());
                 cid.setValue(((Customer)newValue).getId());
             }
         });
@@ -476,7 +476,7 @@ public class Utils {
                     ArrayList<Integer> iarr = new ArrayList<>();
                     prod_map.forEach((K, V) -> {
                         if(K == 0)  return;
-                        if(V.getVendor().getId().equals((int)eid.getValue())){
+                        if(V.getVenId().equals((int)eid.getValue())){
                             iarr.add(V.getId());
                             arr.add(V);
                         }
@@ -519,7 +519,7 @@ public class Utils {
                     ArrayList<Integer> iarr = new ArrayList<>();
                     prod_map.forEach((K, V) -> {
                         if(K == 0)  return;
-                        if(V.getVendor().getId().equals((int)eid.getValue())){
+                        if(V.getVenId().equals((int)eid.getValue())){
                             iarr.add(V.getId());
                             arr.add(V);
                         }
@@ -550,7 +550,7 @@ public class Utils {
         cid.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue != null){
                 if(!newValue.equals(0))
-                    eid.setValue(prod_map.get(Integer.valueOf(newValue.toString())).getVendor().getId());
+                    eid.setValue(prod_map.get(Integer.valueOf(newValue.toString())).getVenId());
                 cid.setValue(newValue);
                 cname.setValue(prod_map.get(Integer.valueOf(newValue.toString())));
             }
@@ -576,7 +576,7 @@ public class Utils {
         cname.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue != null){
                 if(!((Product)newValue).getId().equals(0))
-                    eid.setValue(((Product)newValue).getVendor().getId());
+                    eid.setValue(((Product)newValue).getVenId());
                 cid.setValue(((Product)newValue).getId());
             }
         });
@@ -772,7 +772,7 @@ public class Utils {
                         prod_map.get(p.getFirst().getId()).setStock(p.getSecond().get(0));
                 }
                 else{
-                    b.getVen().setDebit(-b.getNetAmt());
+                    b.ven().setDebit(-b.getNetAmt());
                     for(Pair <Product, ArrayList<Double>> p: b.getProd())
                         prod_map.get(p.getFirst().getId()).setStock(-p.getSecond().get(0));
                 }
@@ -811,7 +811,7 @@ public class Utils {
         GridPane pane = createGrid(false, 3, 4, 2.5, 95, 2.5, 5, 10, 10, 70, 5);
         pane.setStyle("-fx-background-color: #F8FBFC");
 
-        String text =  b.getEmp().getName() + "'s " + b.getCust().getName();;
+        String text =  b.emp().getName() + "'s " + b.cust().getName();;
         addLabel(pane, 1, 1, text, new Font("Open Sans", 24), HPos.LEFT);
         addLabel(pane, 1, 2, "Bill #" + b.getNo(), new Font("Open Sans", 18), HPos.RIGHT);
         addLabel(pane, 1, 2, String.format("Total: %.2f", b.getNetAmt()), new Font("Open Sans", 18), HPos.LEFT);
@@ -950,7 +950,7 @@ public class Utils {
                     else if(((ComboBox)i).getValue().equals(0));
                     else{
                         map.forEach((K, V) -> {
-                            if(V.getEmp().getId() != (int)(((ComboBox)i).getValue()))
+                            if(V.emp().getId() != (int)(((ComboBox)i).getValue()))
                                 set.add(K);
                         });
                     }
@@ -961,7 +961,7 @@ public class Utils {
                     else if(((ComboBox)i).getValue().equals(0));
                     else{
                         map.forEach((K, V) -> {
-                            if(V.getCust().getId() != (int)(((ComboBox)i).getValue()))
+                            if(V.cust().getId() != (int)(((ComboBox)i).getValue()))
                                 set.add(K);
                         });
                     }
@@ -977,9 +977,9 @@ public class Utils {
             else if(b1.localDate().isAfter(b2.localDate()))
                 return 1;
             else{
-                if(b1.getEmp().getName().compareTo(b2.getEmp().getName()) < 0)
+                if(b1.emp().getName().compareTo(b2.emp().getName()) < 0)
                     return -1;
-                else if(b1.getEmp().getName().compareTo(b2.getEmp().getName()) > 0)
+                else if(b1.emp().getName().compareTo(b2.emp().getName()) > 0)
                     return 1;
                 else
                     return b1.getId() - b2.getId();
@@ -1004,7 +1004,7 @@ public class Utils {
         else if(id.equals(0));
         else{
             map.forEach((K, V) -> {
-                if(!V.getVen().getId().equals((int)id))
+                if(!V.ven().getId().equals((int)id))
                     set.add(K);
             });
         }
@@ -1029,12 +1029,12 @@ public class Utils {
         else{
             if(type)
                 map.forEach((K, V) -> {
-                    if(V.getCust().getId() != (int)(id))
+                    if(V.cust().getId() != (int)(id))
                         set.add(K);
                 });
             else
                 map.forEach((K, V) -> {
-                    if(V.getCust().getEmp().getId() != (int)(id))
+                    if(V.cust().emp().getId() != (int)(id))
                         set.add(K);
                 });
         }
@@ -1044,8 +1044,8 @@ public class Utils {
         map.forEach((K, V) -> {
             int cid = K;
             Bill b = V;
-            Customer c = b.getCust();
-            City s = c.getCity();
+            Customer c = b.cust();
+            City s = c.city();
             due.merge(c.getId(), b.getNetAmt(), (V1, V2) -> V1 + V2);
         });
 
@@ -1090,12 +1090,12 @@ public class Utils {
         else{
             if(type)
                 map.forEach((K, V) -> {
-                    if(V.getCust().getId() != (int)(id))
+                    if(V.cust().getId() != (int)(id))
                         set.add(K);
                 });
             else
                 map.forEach((K, V) -> {
-                    if(V.getCust().getEmp().getId() != (int)(id))
+                    if(V.cust().emp().getId() != (int)(id))
                         set.add(K);
                 });
         }
@@ -1105,8 +1105,8 @@ public class Utils {
         map.forEach((K, V) -> {
             int cid = K;
             Bill b = V;
-            Customer c = b.getCust();
-            City s = c.getCity();
+            Customer c = b.cust();
+            City s = c.city();
             due.merge(c.getId(), b.getNetAmt(), (V1, V2) -> V1 + V2);
         });
         return due;
@@ -1152,7 +1152,7 @@ public class Utils {
         else if(cid.equals(0));
         else{
             map.forEach((K, V) -> {
-                if(V.getVen().getId() != (int)(cid))
+                if(V.ven().getId() != (int)(cid))
                     set.add(K);
             });
         }
@@ -1162,7 +1162,7 @@ public class Utils {
         map.forEach((K, V) -> {
             int id = K;
             Bill b = V;
-            Vendor c = b.getVen();
+            Vendor c = b.ven();
             due.merge(c.getId(), b.getNetAmt(), (V1, V2) -> V1 + V2);
         });
 
@@ -1175,13 +1175,13 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             pmap.forEach((K, V) -> {
-                due.merge(V.getVen().getId(), V.getNetAmt(), (V1, V2) -> V1 - V2);
+                due.merge(V.ven().getId(), V.getNetAmt(), (V1, V2) -> V1 - V2);
             });
         }
         else{
             pmap.forEach((K, V) -> {
-                if(cid.equals(V.getVen().getId()))
-                    due.merge(V.getVen().getId(), V.getNetAmt(), (V1, V2) -> V1 - V2);
+                if(cid.equals(V.ven().getId()))
+                    due.merge(V.ven().getId(), V.getNetAmt(), (V1, V2) -> V1 - V2);
             });
         }
         return due;
@@ -1203,7 +1203,7 @@ public class Utils {
         else if(eid.equals(0));
         else{
             map.forEach((K, V) -> {
-                if(V.getEmp().getId() != (int)(eid))
+                if(V.emp().getId() != (int)(eid))
                     set.add(K);
             });
         }
@@ -1225,7 +1225,7 @@ public class Utils {
         else if(eid.equals(0));
         else{
             pmap.forEach((K, V) -> {
-                if(V.getEmp().getId() != (int)(eid))
+                if(V.emp().getId() != (int)(eid))
                     pset.add(K);
             });
         }
@@ -1234,7 +1234,7 @@ public class Utils {
         Map<Integer, Double> cpay = new HashMap<>();
         cust_map.forEach((K, V) -> {
             if(K == 0) return;
-            if(V.getEmp().getId().equals(eid) || eid.equals(0))
+            if(V.emp().getId().equals(eid) || eid.equals(0))
                 cpay.put(K, 0.0);
         });
         if(cid == null);
@@ -1253,7 +1253,7 @@ public class Utils {
         Map<Integer, Double> csal5 = new HashMap<>();
         cust_map.forEach((K, V) -> {
             if(K == 0) return;
-            if(V.getEmp().getId().equals(eid) || eid.equals(0)){
+            if(V.emp().getId().equals(eid) || eid.equals(0)){
                 due.put(K, new ArrayList<>(Arrays.asList(0.0, 0.0, 0.0, 0.0, 0.0)));
                 csal.put(K, 0.0);
                 csal2.put(K, 0.0);
@@ -1266,7 +1266,7 @@ public class Utils {
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
                 if(V.localDate().isAfter(date.minusDays(90))) return;
-                csal.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
+                csal.merge(V.cust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
         csal.forEach((K, V) -> {
@@ -1279,7 +1279,7 @@ public class Utils {
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
                 if(V.localDate().isBefore(date.minusDays(89)) || V.localDate().isAfter(date.minusDays(60))) return;
-                csal2.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
+                csal2.merge(V.cust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
         csal2.forEach((K, V) -> {
@@ -1292,7 +1292,7 @@ public class Utils {
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
                 if(V.localDate().isBefore(date.minusDays(59)) || V.localDate().isAfter(date.minusDays(30))) return;
-                csal3.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
+                csal3.merge(V.cust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
         csal3.forEach((K, V) -> {
@@ -1305,7 +1305,7 @@ public class Utils {
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
                 if(V.localDate().isBefore(date.minusDays(29)) || V.localDate().isAfter(date.minusDays(15))) return;
-                csal4.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
+                csal4.merge(V.cust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
         csal4.forEach((K, V) -> {
@@ -1318,7 +1318,7 @@ public class Utils {
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
                 if(V.localDate().isBefore(date.minusDays(14))) return;
-                csal5.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
+                csal5.merge(V.cust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
         csal5.forEach((K, V) -> {

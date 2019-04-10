@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  */
 package bookkeeper;
+import static bookkeeper.Data.ven_map;
 import java.io.Serializable;
 
 /**
@@ -29,11 +30,11 @@ import java.io.Serializable;
  * @author shivam
  */
 public class Product implements Serializable, Unique {
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 7L;
     private int id;
     private String HSN, name;
     private Double vol, tax, pprice, sprice, stock;
-    private Vendor vendor;
+    private Integer vendor;
 
     public Product(int id, String name) {
         this.id = id;
@@ -59,7 +60,7 @@ public class Product implements Serializable, Unique {
         this.pprice = pprice;
         this.sprice = sprice;
         this.stock = stock;
-        this.vendor = vendor;
+        this.vendor = vendor.getId();
     }
 
     public Product(int id, String HSN, String name, Double vol, Double tax, Double pprice, Double sprice, Vendor vendor) {
@@ -70,7 +71,7 @@ public class Product implements Serializable, Unique {
         this.tax = tax;
         this.pprice = pprice;
         this.sprice = sprice;
-        this.vendor = vendor;
+        this.vendor = vendor.getId();
         this.stock = 0.0;
     }
 
@@ -108,10 +109,12 @@ public class Product implements Serializable, Unique {
         return vol;
     }
 
-    public Vendor getVendor() {
+    public Integer getVenId() {
         return vendor;
     }
-
+    public Vendor ven() {
+        return ven_map.get(vendor);
+    }
     public String getHSN() {
         return HSN;
     }

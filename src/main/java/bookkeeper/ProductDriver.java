@@ -144,7 +144,7 @@ public class ProductDriver extends Utils {
             ilabel.setText(String.valueOf(id));
             name.setText(prod_map.get(id).getName());
             hsn.setText(prod_map.get(id).getHSN());
-            vid.setValue(prod_map.get(id).getVendor().getId());
+            vid.setValue(prod_map.get(id).getVenId());
             vid.setDisable(true);
             vname.setDisable(true);
             pprice.setText(prod_map.get(id).getPprice().toString());
@@ -224,7 +224,7 @@ public class ProductDriver extends Utils {
                 else if(eid.getValue().equals(0))
                     table.getItems().add(new ProductRow(K, V.getName(), V.getSprice()));
                 else{
-                    if(V.getVendor().getId().equals(eid.getValue()))
+                    if(V.getVenId().equals(eid.getValue()))
                         table.getItems().add(new ProductRow(K, V.getName(), V.getSprice()));
                 }
             });
@@ -245,7 +245,7 @@ public class ProductDriver extends Utils {
             else
                 prod_map.values().forEach(K -> {
                     if(K.getId() == 0)  return;
-                    if(K.getVendor().getId() == (int)eid.getValue()){
+                    if(K.getVenId() == (int)eid.getValue()){
                         
                         map.add(K);
                     }
@@ -261,7 +261,7 @@ public class ProductDriver extends Utils {
                     row = sheet.createRow(i++);
                     row.createCell(0).setCellValue(entry.getId());
                     row.createCell(1).setCellValue(entry.getName());
-                    row.createCell(2).setCellValue(entry.getVendor().getName());
+                    row.createCell(2).setCellValue(entry.ven().getName());
             }
             try {
                 File file = new File(ven.get((int)eid.getValue()).getName()+"-Product List.xls");

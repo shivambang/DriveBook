@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  */
 package bookkeeper;
+import static bookkeeper.Data.city_map;
+import static bookkeeper.Data.emp_map;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -30,11 +32,11 @@ import java.time.LocalDate;
  * @author shivam
  */
 public class Customer implements Serializable, Unique {
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 7L;
     private final Integer id;
     private String name;
-    private City city;
-    private Employee emp;
+    private Integer city;
+    private Integer emp;
     private Double credit, debit;
     private LocalDate opDate;
     private Double due;
@@ -48,8 +50,8 @@ public class Customer implements Serializable, Unique {
     public Customer(Integer id, String name, City city, Employee emp, Double credit, Double debit, LocalDate opDate, Double due, Integer days) {
         this.id = id;
         this.name = name;
-        this.city = city;
-        this.emp = emp;
+        this.city = city.getId();
+        this.emp = emp.getId();
         this.credit = credit;
         this.debit = debit;
         this.opDate = opDate;
@@ -79,12 +81,18 @@ public class Customer implements Serializable, Unique {
         return id;
     }
 
-    public City getCity() {
+    public Integer getCityId() {
         return city;
     }
+    public City city() {
+        return city_map.get(city);
+    }
 
-    public Employee getEmp() {
+    public Integer getEmpId() {
         return emp;
+    }
+    public Employee emp() {
+        return emp_map.get(emp);
     }
 
     public Double getCredit() {

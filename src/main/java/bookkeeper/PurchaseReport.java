@@ -112,7 +112,7 @@ public class PurchaseReport extends Utils{
             else if(vid.getValue().equals(0));
             else{
                 map.forEach((K, V) -> {
-                    if(!V.getVen().getId().equals(vid.getValue()))
+                    if(!V.getVenId().equals(vid.getValue()))
                         set.add(K);
                 });
             }
@@ -121,7 +121,7 @@ public class PurchaseReport extends Utils{
             Map<Integer, Map<Integer, Double>> tab = new HashMap<>();
             map.forEach((K, V) -> {
                 int id = K;
-                Vendor c = V.getVen();
+                Vendor c = V.ven();
                 if(!tab.containsKey(c.getId()))
                     tab.put(c.getId(), new HashMap<>());
                 for(Pair<Product, ArrayList<Double>> p: V.getProd()){

@@ -128,7 +128,7 @@ public class SaleBill extends Utils {
                         else{
                             int counter = 1;
                             for(Map.Entry<Integer, Bill> V: bill_map.entrySet()){
-                                if(V.getValue().getType() == 1 && V.getValue().getEmp().getId().equals(newValue)){
+                                if(V.getValue().getType() == 1 && V.getValue().getEmpId().equals(newValue)){
                                     if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
                                             && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
@@ -266,7 +266,7 @@ public class SaleBill extends Utils {
                         else{
                             int counter = 1;
                             for(Map.Entry<Integer, Bill> V: bill_map.entrySet()){
-                                if(V.getValue().getType() == 2 && V.getValue().getEmp().getId().equals(newValue)){
+                                if(V.getValue().getType() == 2 && V.getValue().getEmpId().equals(newValue)){
                                     if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
                                             && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
@@ -354,7 +354,7 @@ public class SaleBill extends Utils {
             ArrayList<Integer> iarr = new ArrayList<>();
             cust_map.forEach((K, V) -> {
                 if(K == 0)  return;
-                if(V.getEmp().getId().equals(bill_map.get(id).getEmp().getId())){
+                if(V.getEmpId().equals(bill_map.get(id).getEmpId())){
                     iarr.add(V.getId());
                     arr.add(V);
                 }
@@ -363,13 +363,13 @@ public class SaleBill extends Utils {
                 if(i.getClass().equals(ComboBox.class)){
                     if(i.getId() == null);
                     else if(i.getId().equals("EID")){
-                        ((ComboBox) i).setValue(bill_map.get(id).getEmp().getId());
+                        ((ComboBox) i).setValue(bill_map.get(id).getEmpId());
                         ((ComboBox) i).setDisable(true);
                     }
                     else if(i.getId().equals("ENAME"))
                         ((ComboBox) i).setDisable(true);
                     else if(i.getId().equals("CID")){
-                        ((ComboBox) i).setValue(bill_map.get(id).getCust().getId());
+                        ((ComboBox) i).setValue(bill_map.get(id).getCustId());
                         ((ComboBox) i).setItems(FXCollections.observableArrayList(iarr));
                     }
                     else if(i.getId().equals("CNAME"))

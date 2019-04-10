@@ -23,6 +23,8 @@
  */
 package bookkeeper;
 
+import static bookkeeper.Data.emp_map;
+import static bookkeeper.Data.ven_map;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,12 +34,12 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Payment implements Unique, Serializable {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
     private boolean type;
     private Integer id, no;
     private LocalDate date;
-    private Employee emp;
-    private Vendor ven;
+    private Integer emp;
+    private Integer ven;
     private ArrayList<Pair<Customer, Pair<Double, String>>> pay;
     private String part;
     private Double netAmt;
@@ -47,7 +49,7 @@ public class Payment implements Unique, Serializable {
         this.no = no;
         this.date = date;
         this.netAmt = netAmt;
-        this.emp = emp;
+        this.emp = emp.getId();
         this.pay = pay;
         this.type = true;
     }
@@ -55,7 +57,7 @@ public class Payment implements Unique, Serializable {
     public Payment(Integer id, LocalDate date, Vendor ven, Double netAmt, String part) {
         this.id = id;
         this.date = date;
-        this.ven = ven;
+        this.ven = ven.getId();
         this.netAmt = netAmt;
         this.part = part;
         this.type = false;
@@ -84,8 +86,11 @@ public class Payment implements Unique, Serializable {
         return date;
     }
 
-    public Vendor getVen() {
+    public Integer getVenId() {
         return ven;
+    }
+    public Vendor ven() {
+        return ven_map.get(ven);
     }
 
     public String getPart() {
@@ -96,8 +101,11 @@ public class Payment implements Unique, Serializable {
         return netAmt;
     }
 
-    public Employee getEmp() {
+    public Integer getEmpId() {
         return emp;
+    }
+    public Employee emp() {
+        return emp_map.get(emp);
     }
 
     public ArrayList<Pair<Customer, Pair<Double, String>>> getPay() {

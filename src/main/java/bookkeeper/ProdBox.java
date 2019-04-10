@@ -184,7 +184,7 @@ public class ProdBox extends Utils implements Initializable {
         try{
             if(bill_map.containsKey(bid)){
                 Bill b = bill_map.get(bid);
-                b.getVen().setDebit(-b.getNetAmt());
+                b.ven().setDebit(-b.getNetAmt());
                 for(Pair <Product, ArrayList<Double>> p: b.getProd())
                     prod_map.get(p.getFirst().getId()).setStock(-p.getSecond().get(0));
             }
@@ -243,7 +243,7 @@ public class ProdBox extends Utils implements Initializable {
             p = new ArrayList<>();
             prodid.forEach((x) -> {
                 if(x == 0);
-                else if(prod_map.get(x).getVendor().getId().equals(vid)){ 
+                else if(prod_map.get(x).getVenId().equals(vid)){ 
                     id.add(x);
                     p.add(prod_map.get(x));
                 }

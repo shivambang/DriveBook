@@ -113,7 +113,7 @@ public class SaleDues extends Utils{
             cset.remove(0);
             if(!eid.getValue().equals(0))
             cust_map.forEach((K, V) -> {
-                if(K != 0 && !V.getEmp().getId().equals((int)eid.getValue()))
+                if(K != 0 && !V.getEmpId().equals((int)eid.getValue()))
                     cset.remove(K);
             });
             table.getItems().clear();
@@ -122,7 +122,7 @@ public class SaleDues extends Utils{
             cset.forEach((K) -> {
                 Double due = cust_map.get(K).getDebit() - cust_map.get(K).getCredit() + 
                         (dr.get(K) == null ? 0.0 : dr.get(K)) - (cr.get(K) == null ? 0.0 : cr.get(K));
-                table.getItems().add(new BillRow(K, cust_map.get(K), cust_map.get(K).getCity(),
+                table.getItems().add(new BillRow(K, cust_map.get(K), cust_map.get(K).city(),
                     cust_map.get(K).getDebit() - cust_map.get(K).getCredit(), cr.get(K), dr.get(K), due, null));
                 sum.add(due);
             });

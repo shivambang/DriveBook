@@ -109,7 +109,7 @@ public class PurchaseRegister extends Utils {
             table.getItems().clear();
             map.forEach((K, V) -> {
                 Bill b = V;
-                Vendor c = b.getVen();
+                Vendor c = b.ven();
                 for(Pair<Product, ArrayList<Double>> p: b.getProd()){
                     table.getItems().add(new BillRow(K, V.localDate(), c, p.getFirst(), p.getSecond().get(1), p.getSecond().get(0), p.getSecond().get(6)));
                 }
@@ -148,8 +148,8 @@ public class PurchaseRegister extends Utils {
                 for(Pair<Product, ArrayList<Double>> p: entry.getValue().getProd()){
                     row = sheet.createRow(i++);
                     row.createCell(0).setCellValue(entry.getKey());
-                    row.createCell(1).setCellValue(entry.getValue().getVen().getId());
-                    row.createCell(2).setCellValue(entry.getValue().getVen().getName());
+                    row.createCell(1).setCellValue(entry.getValue().getVenId());
+                    row.createCell(2).setCellValue(entry.getValue().ven().getName());
                     row.createCell(3).setCellValue(p.getFirst().getId());
                     row.createCell(4).setCellValue(p.getFirst().getName());
                     row.createCell(5).setCellValue(p.getFirst().getHSN());
@@ -275,10 +275,10 @@ public class PurchaseRegister extends Utils {
             map.forEach((K, V) -> {
                 if(id.getValue() == null) return;
                 else if(id.getValue().equals(0))
-                    table.getItems().add(new BillRow(V.getId(), V.getVen(), V.getNetAmt(), V.getPart()));
+                    table.getItems().add(new BillRow(V.getId(), V.ven(), V.getNetAmt(), V.getPart()));
                 else{
-                    if(V.getVen().getId().equals(id.getValue()))
-                        table.getItems().add(new BillRow(V.getId(), V.getVen(), V.getNetAmt(), V.getPart()));
+                    if(V.getVenId().equals(id.getValue()))
+                        table.getItems().add(new BillRow(V.getId(), V.ven(), V.getNetAmt(), V.getPart()));
                 }
                         
             });

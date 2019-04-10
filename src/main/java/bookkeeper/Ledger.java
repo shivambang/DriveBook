@@ -134,10 +134,10 @@ public class Ledger extends Utils {
             map.forEach((K, V) -> {
                 if(id.getValue() == null) return;
                 else if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
+                    arr.add(new BillRow(V.getVenId(), V.localDate(), V.ven(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
                 else{
-                    if(V.getVen().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
+                    if(V.getVenId().equals(id.getValue()))
+                        arr.add(new BillRow(V.getVenId(), V.localDate(), V.ven(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
                 }
                         
             });
@@ -156,10 +156,10 @@ public class Ledger extends Utils {
             bmap.forEach((K, V) -> {
                 if(id.getValue() == null) return;
                 else if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
+                    arr.add(new BillRow(V.ven().getId(), V.localDate(), V.ven(), V.getNetAmt(), null, String.format("Bill #%d", K)));
                 else{
-                    if(V.getVen().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
+                    if(V.getVenId().equals(id.getValue()))
+                        arr.add(new BillRow(V.getVenId(), V.localDate(), V.ven(), V.getNetAmt(), null, String.format("Bill #%d", K)));
                 }
                         
             });
@@ -315,10 +315,10 @@ public class Ledger extends Utils {
                 txt.setOnAction((f) -> { billWin(V); });
                 txt.setId("link");
                 if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getCust().getId(), V.localDate(), V.getCust(), V.getNetAmt(), null, txt));
+                    arr.add(new BillRow(V.getCustId(), V.localDate(), V.cust(), V.getNetAmt(), null, txt));
                 else{
-                    if(V.getCust().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getCust().getId(), V.localDate(), V.getCust(), V.getNetAmt(), null, txt));
+                    if(V.getCustId().equals(id.getValue()))
+                        arr.add(new BillRow(V.getCustId(), V.localDate(), V.cust(), V.getNetAmt(), null, txt));
                 }
                         
             });

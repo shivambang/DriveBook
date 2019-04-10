@@ -22,6 +22,7 @@
  * THE SOFTWARE.
  */
 package bookkeeper;
+import static bookkeeper.Data.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,13 +31,13 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Bill implements Serializable, Unique {
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 7L;
     private int id, no;
     private int type; //True = Sale; False = Purchase;
     private LocalDate date;
-    private Customer cust;
-    private Employee emp;
-    private Vendor ven;
+    private Integer cust;
+    private Integer emp;
+    private Integer ven;
     private ArrayList<Pair<Product, ArrayList<Double>>> prod;
     private double disc, netAmt;
 
@@ -44,8 +45,8 @@ public class Bill implements Serializable, Unique {
         this.type = 1;
         this.id = id;
         this.date = date;
-        this.cust = cust;
-        this.emp = emp;
+        this.cust = cust.getId();
+        this.emp = emp.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -56,8 +57,8 @@ public class Bill implements Serializable, Unique {
         this.id = id;
         this.no = no;
         this.date = date;
-        this.cust = cust;
-        this.emp = emp;
+        this.cust = cust.getId();
+        this.emp = emp.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -67,7 +68,7 @@ public class Bill implements Serializable, Unique {
         this.type = 0;
         this.id = id;
         this.date = date;
-        this.ven = ven;
+        this.ven = ven.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -85,10 +86,13 @@ public class Bill implements Serializable, Unique {
         return type;
     }
 
-    public Vendor getVen() {
+    public Integer getVenId() {
         return ven;
     }
-
+    public Vendor ven() {
+        return ven_map.get(ven);
+    }
+    
     @Override
     public Integer getId() {
         return id;
@@ -106,12 +110,18 @@ public class Bill implements Serializable, Unique {
         return date;
     }
     
-    public Customer getCust() {
+    public Integer getCustId() {
         return cust;
     }
-
-    public Employee getEmp() {
+    public Customer cust()  {
+        return cust_map.get(cust);
+    }
+    
+    public Integer getEmpId() {
         return emp;
+    }
+    public Employee emp() {
+        return emp_map.get(emp);
     }
 
     public ArrayList<Pair<Product, ArrayList<Double>>> getProd() {

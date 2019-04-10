@@ -103,7 +103,7 @@ public class CustomerPayment extends Utils {
                 if(i.getClass().equals(ComboBox.class)){
                     if(i.getId() == null);
                     else if(i.getId().equals("EID")){
-                        ((ComboBox) i).setValue(pay_map.get(id).getEmp().getId());
+                        ((ComboBox) i).setValue(pay_map.get(id).emp().getId());
                         ((ComboBox) i).setDisable(true);
                     }
                     else if(i.getId().equals("ENAME"))
@@ -123,7 +123,7 @@ public class CustomerPayment extends Utils {
                         else{
                             int counter = 1;
                             for(Map.Entry<Integer, Payment> V: pay_map.entrySet()){
-                                if(V.getValue().getEmp().getId().equals(newValue)){
+                                if(V.getValue().emp().getId().equals(newValue)){
                                     if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
                                             && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
@@ -185,7 +185,7 @@ public class CustomerPayment extends Utils {
         ArrayList<Customer> arr = new ArrayList<>();
         cust_map.forEach((K, V) -> {
             if(K == 0) return;
-            if(V.getEmp().getId().equals(eid)){
+            if(V.getEmpId().equals(eid)){
                 iarr.add(K);
                 arr.add(V);
             }

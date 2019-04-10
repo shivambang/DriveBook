@@ -175,10 +175,10 @@ public class CustomerDriver extends Utils {
             Customer c = cust_map.get(id);
             date.setValue(c.localDate());
             name.setText(c.getName());
-            citi.setValue(c.getCity());
+            citi.setValue(c.city());
             citi.setDisable(true);
-            eid.setValue(c.getEmp().getId());
-            ename.setValue(c.getEmp());
+            eid.setValue(c.emp());
+            ename.setValue(c.emp());
             eid.setDisable(true);
             ename.setDisable(true);
             credit.setText(c.getCredit().toString());
@@ -260,10 +260,10 @@ public class CustomerDriver extends Utils {
                 if(K == 0) return;
                 if(eid.getValue() == null) return;
                 else if(eid.getValue().equals(0))
-                    table.getItems().add(new BillRow(K, V, V.getCity(), V.getEmp()));
+                    table.getItems().add(new BillRow(K, V, V.city(), V.emp()));
                 else{
-                    if(V.getEmp().getId().equals(eid.getValue()))
-                        table.getItems().add(new BillRow(K, V, V.getCity(), V.getEmp()));
+                    if(V.emp().getId().equals(eid.getValue()))
+                        table.getItems().add(new BillRow(K, V, V.city(), V.emp()));
                 }
             });
         });
@@ -317,7 +317,7 @@ public class CustomerDriver extends Utils {
             else
                 cust_map.values().forEach(K -> {
                     if(K.getId() == 0)  return;
-                    if(K.getEmp().getId() == (int)eid.getValue()){
+                    if(K.getEmpId() == (int)eid.getValue()){
                         
                         map.add(K);
                     }
@@ -333,7 +333,7 @@ public class CustomerDriver extends Utils {
                     row = sheet.createRow(i++);
                     row.createCell(0).setCellValue(entry.getId());
                     row.createCell(1).setCellValue(entry.getName());
-                    row.createCell(2).setCellValue(entry.getEmp().getName());
+                    row.createCell(2).setCellValue(entry.emp().getName());
             }
             try {
                 File file = new File(emp.get((int)eid.getValue()).getName()+"-Customer List.xls");

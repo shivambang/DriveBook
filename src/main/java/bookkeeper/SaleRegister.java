@@ -128,7 +128,7 @@ public class SaleRegister extends Utils {
                     part = "BILL";
                 else
                     part = "SLIP"; 
-                table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), part, V.getEmp(), V.getCust(), V.getCust().getCity(), V.getNetAmt()));
+                table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), part, V.emp(), V.cust(), V.cust().city(), V.getNetAmt()));
             }
             Tab node = new Tab("View", view(tab, table));
             tab.getTabs().add(node);
@@ -161,8 +161,8 @@ public class SaleRegister extends Utils {
                 for(Pair<Product, ArrayList<Double>> p: entry.getProd()){
                     row = sheet.createRow(i++);
                     row.createCell(0).setCellValue(entry.getId());
-                    row.createCell(1).setCellValue(entry.getCust().getId());
-                    row.createCell(2).setCellValue(entry.getCust().getName());
+                    row.createCell(1).setCellValue(entry.getCustId());
+                    row.createCell(2).setCellValue(entry.cust().getName());
                     row.createCell(3).setCellValue(p.getFirst().getId());
                     row.createCell(4).setCellValue(p.getFirst().getName());
                     row.createCell(5).setCellValue(p.getFirst().getHSN());
@@ -307,7 +307,7 @@ public class SaleRegister extends Utils {
                         else if(((ComboBox)i).getValue().equals(0));
                         else{
                             map.forEach((K, V) -> {
-                                if(V.getEmp().getId() != (int)(((ComboBox)i).getValue()))
+                                if(V.getEmpId() != (int)(((ComboBox)i).getValue()))
                                     set.add(K);
                             });
                         }
@@ -329,10 +329,10 @@ public class SaleRegister extends Utils {
                 for(Pair<Customer, Pair<Double, String>> p: V.getPay()){
                     if(cid == -1) return;
                     else if(cid == 0)
-                        table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
+                        table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), V.emp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
                     else{
                         if(p.getFirst().getId().equals(cid))
-                            table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
+                            table.getItems().add(new BillRow(V.getId(), V.getNo(), V.localDate(), V.emp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
                     }
                         
                 }

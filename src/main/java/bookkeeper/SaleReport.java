@@ -121,7 +121,7 @@ public class SaleReport extends Utils{
                         else if(((ComboBox)i).getValue().equals(0));
                         else{
                             map.forEach((K, V) -> {
-                                if(V.getEmp().getId() != (int)(((ComboBox)i).getValue()))
+                                if(V.getEmpId() != (int)(((ComboBox)i).getValue()))
                                     set.add(K);
                             });
                         }
@@ -132,7 +132,7 @@ public class SaleReport extends Utils{
                         else if(((ComboBox)i).getValue().equals(0));
                         else{
                             map.forEach((K, V) -> {
-                                if(V.getCust().getId() != (int)(((ComboBox)i).getValue()))
+                                if(V.getCustId() != (int)(((ComboBox)i).getValue()))
                                     set.add(K);
                             });
                         }
@@ -156,7 +156,7 @@ public class SaleReport extends Utils{
                                     return new Pair(V1.getFirst()+V2.getFirst(), V1.getSecond()+V2.getSecond());
                                 });
                     }
-                    else if(vid.getValue().equals(p.getFirst().getVendor().getId())){
+                    else if(vid.getValue().equals(p.getFirst().getVenId())){
                         if(pid.getValue().equals(0) || pid.getValue().equals(p.getFirst().getId())){
                         sale.merge(p.getFirst().getId(), new Pair(p.getSecond().get(0), p.getSecond().get(6)),
                                 (V1, V2) -> {
