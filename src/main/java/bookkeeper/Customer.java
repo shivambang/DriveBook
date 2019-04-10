@@ -30,13 +30,13 @@ import java.time.LocalDate;
  * @author shivam
  */
 public class Customer implements Serializable, Unique {
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 6L;
     private final Integer id;
     private String name;
     private City city;
     private Employee emp;
     private Double credit, debit;
-    private String opDate;
+    private LocalDate opDate;
     private Double due;
     private Integer days;
         
@@ -52,7 +52,7 @@ public class Customer implements Serializable, Unique {
         this.emp = emp;
         this.credit = credit;
         this.debit = debit;
-        this.opDate = opDate.toString();
+        this.opDate = opDate;
         this.due = due;
         this.days = days;
     }
@@ -95,11 +95,11 @@ public class Customer implements Serializable, Unique {
         return debit;
     }
 
-    public String getOpDate() {
-        return opDate;
+    public String getDate() {
+        return opDate.toString();
     }
-    public LocalDate getLocalDate(){
-        return LocalDate.parse(opDate);
+    public LocalDate localDate(){
+        return opDate;
     }
 
     public Double getDue() {

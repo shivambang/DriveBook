@@ -56,7 +56,7 @@ public class Print {
         GridPane node = fxml.load();
         ((Label) fxml.getNamespace().get("customer")).setText(bill.getCust().getName());
         ((Label) fxml.getNamespace().get("no")).setText(bill.getId().toString());
-        ((Label) fxml.getNamespace().get("date")).setText(bill.getLocalDate().format(DateTimeFormatter.ofPattern("dd MMM, yyyy")));
+        ((Label) fxml.getNamespace().get("date")).setText(bill.localDate().format(DateTimeFormatter.ofPattern("dd MMM, yyyy")));
         ((Label) fxml.getNamespace().get("due")).setText(String.format(" %.2f", bill.getNetAmt()));
         
         //Table

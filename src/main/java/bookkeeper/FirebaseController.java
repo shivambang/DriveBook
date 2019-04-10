@@ -53,7 +53,7 @@ public class FirebaseController {
         db = FirestoreClient.getFirestore();
     }
     
-    public <K, V extends Unique> void write(K col, V doc) throws InterruptedException, ExecutionException, TimeoutException {
+    public <K, V> void write(K col, V doc) throws InterruptedException, ExecutionException, TimeoutException {
         DocumentReference docRef = db.collection(doc.getClass().getSimpleName()).document(col.toString());
         ApiFuture<WriteResult> result = docRef.set(doc);
         try{

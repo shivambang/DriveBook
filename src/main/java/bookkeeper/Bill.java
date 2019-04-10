@@ -30,10 +30,10 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Bill implements Serializable, Unique {
-    private static final long serialVersionUID = 5L;
+    private static final long serialVersionUID = 4L;
     private int id, no;
     private int type; //True = Sale; False = Purchase;
-    private String date;
+    private LocalDate date;
     private Customer cust;
     private Employee emp;
     private Vendor ven;
@@ -43,7 +43,7 @@ public class Bill implements Serializable, Unique {
     public Bill(int id, LocalDate date, Employee emp, Customer cust, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 1;
         this.id = id;
-        this.date = date.toString();
+        this.date = date;
         this.cust = cust;
         this.emp = emp;
         this.prod = prod;
@@ -55,7 +55,7 @@ public class Bill implements Serializable, Unique {
         this.type = type;
         this.id = id;
         this.no = no;
-        this.date = date.toString();
+        this.date = date;
         this.cust = cust;
         this.emp = emp;
         this.prod = prod;
@@ -66,7 +66,7 @@ public class Bill implements Serializable, Unique {
     public Bill(int id, LocalDate date, Vendor ven, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 0;
         this.id = id;
-        this.date = date.toString();
+        this.date = date;
         this.ven = ven;
         this.prod = prod;
         this.disc = disc;
@@ -102,11 +102,11 @@ public class Bill implements Serializable, Unique {
     }
 
     public String getDate() {
-        return date;
+        return date.toString();
     }
 
-    public LocalDate getLocalDate(){
-        return LocalDate.parse(date);
+    public LocalDate localDate(){
+        return date;
     }
     
     public Customer getCust() {

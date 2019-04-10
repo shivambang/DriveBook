@@ -32,10 +32,10 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Payment implements Unique, Serializable {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 2L;
     private boolean type;
     private Integer id, no;
-    private String date;
+    private LocalDate date;
     private Employee emp;
     private Vendor ven;
     private ArrayList<Pair<Customer, Pair<Double, String>>> pay;
@@ -45,7 +45,7 @@ public class Payment implements Unique, Serializable {
     public Payment(Integer id, Integer no, LocalDate date, Employee emp, ArrayList<Pair<Customer, Pair<Double, String>>> pay, Double netAmt) {
         this.id = id;
         this.no = no;
-        this.date = date.toString();
+        this.date = date;
         this.netAmt = netAmt;
         this.emp = emp;
         this.pay = pay;
@@ -54,7 +54,7 @@ public class Payment implements Unique, Serializable {
 
     public Payment(Integer id, LocalDate date, Vendor ven, Double netAmt, String part) {
         this.id = id;
-        this.date = date.toString();
+        this.date = date;
         this.ven = ven;
         this.netAmt = netAmt;
         this.part = part;
@@ -75,10 +75,10 @@ public class Payment implements Unique, Serializable {
     }
 
     public String getDate() {
-        return date;
+        return date.toString();
     }
-    public LocalDate getLocalDate(){
-        return LocalDate.parse(date);
+    public LocalDate localDate(){
+        return date;
     }
 
     public Vendor getVen() {

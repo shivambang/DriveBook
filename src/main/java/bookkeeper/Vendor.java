@@ -29,9 +29,9 @@ import java.time.LocalDate;
  * @author shivam
  */
 public class Vendor implements Serializable, Unique {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 2L;
     private int id;
-    private String date;
+    private LocalDate date;
     private String name;
     private double credit, debit;
     
@@ -49,7 +49,7 @@ public class Vendor implements Serializable, Unique {
 
     public Vendor(int id, LocalDate date, String name, double credit, double debit) {
         this.id = id;
-        this.date = date.toString();
+        this.date = date;
         this.name = name;
         this.credit = credit;
         this.debit = debit;
@@ -62,10 +62,10 @@ public class Vendor implements Serializable, Unique {
     }
 
     public String getDate() {
-        return date;
+        return date.toString();
     }
-    public LocalDate getLocalDate(){
-        return LocalDate.parse(date);
+    public LocalDate localDate(){
+        return date;
     }
 
     public String getName() {

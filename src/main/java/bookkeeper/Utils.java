@@ -937,7 +937,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isBefore(fdate) || V.getLocalDate().isAfter(tdate))
+            if(V.localDate().isBefore(fdate) || V.localDate().isAfter(tdate))
                 set.add(K);
         });
 
@@ -972,9 +972,9 @@ public class Utils {
         set.forEach((value) -> { map.remove(value); } );
         List<Bill> list = new ArrayList(map.values());
         list.sort((Bill b1, Bill b2) -> {
-            if(b1.getLocalDate().isBefore(b2.getLocalDate()))
+            if(b1.localDate().isBefore(b2.localDate()))
                 return -1;
-            else if(b1.getLocalDate().isAfter(b2.getLocalDate()))
+            else if(b1.localDate().isAfter(b2.localDate()))
                 return 1;
             else{
                 if(b1.getEmp().getName().compareTo(b2.getEmp().getName()) < 0)
@@ -996,7 +996,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isBefore(fdate) || V.getLocalDate().isAfter(tdate))
+            if(V.localDate().isBefore(fdate) || V.localDate().isAfter(tdate))
                 set.add(K);
         });
 
@@ -1020,7 +1020,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1056,7 +1056,7 @@ public class Utils {
         });
         Set<Integer> pset = new HashSet<>();
         pmap.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 pset.add(K);
         });
         pset.forEach((value) -> { pmap.remove(value); } );
@@ -1081,7 +1081,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1121,7 +1121,7 @@ public class Utils {
         });
         Set<Integer> pset = new HashSet<>();
         pmap.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 pset.add(K);
         });
         pset.forEach((value) -> { pmap.remove(value); } );
@@ -1144,7 +1144,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1195,7 +1195,7 @@ public class Utils {
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getLocalDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1265,7 +1265,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isAfter(date.minusDays(90))) return;
+                if(V.localDate().isAfter(date.minusDays(90))) return;
                 csal.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1278,7 +1278,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isBefore(date.minusDays(89)) || V.getLocalDate().isAfter(date.minusDays(60))) return;
+                if(V.localDate().isBefore(date.minusDays(89)) || V.localDate().isAfter(date.minusDays(60))) return;
                 csal2.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1291,7 +1291,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isBefore(date.minusDays(59)) || V.getLocalDate().isAfter(date.minusDays(30))) return;
+                if(V.localDate().isBefore(date.minusDays(59)) || V.localDate().isAfter(date.minusDays(30))) return;
                 csal3.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1304,7 +1304,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isBefore(date.minusDays(29)) || V.getLocalDate().isAfter(date.minusDays(15))) return;
+                if(V.localDate().isBefore(date.minusDays(29)) || V.localDate().isAfter(date.minusDays(15))) return;
                 csal4.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1317,7 +1317,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isBefore(date.minusDays(14))) return;
+                if(V.localDate().isBefore(date.minusDays(14))) return;
                 csal5.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }

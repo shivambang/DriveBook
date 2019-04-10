@@ -173,7 +173,7 @@ public class CustomerDriver extends Utils {
         if(id != -1){
             ilabel.setText(String.valueOf(id));
             Customer c = cust_map.get(id);
-            date.setValue(c.getLocalDate());
+            date.setValue(c.localDate());
             name.setText(c.getName());
             citi.setValue(c.getCity());
             citi.setDisable(true);

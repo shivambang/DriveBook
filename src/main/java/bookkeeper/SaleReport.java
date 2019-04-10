@@ -109,7 +109,7 @@ public class SaleReport extends Utils{
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getLocalDate().isBefore(fdate.getValue()) || V.getLocalDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
             venGrid.getChildren().forEach((i) -> {
