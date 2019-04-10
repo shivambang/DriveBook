@@ -128,7 +128,7 @@ public class SaleRegister extends Utils {
                     part = "BILL";
                 else
                     part = "SLIP"; 
-                table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getDate(), part, V.getEmp(), V.getCust(), V.getCust().getCity(), V.getNetAmt()));
+                table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getLocalDate(), part, V.getEmp(), V.getCust(), V.getCust().getCity(), V.getNetAmt()));
             }
             Tab node = new Tab("View", view(tab, table));
             tab.getTabs().add(node);
@@ -289,7 +289,7 @@ public class SaleRegister extends Utils {
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.getLocalDate().isBefore(fdate.getValue()) || V.getLocalDate().isAfter(tdate.getValue()))
                     set.add(K);
                 if(Integer.parseInt(bid.getText()) != 0){
                     if(V.getNo() != Integer.parseInt(bid.getText()))
@@ -329,15 +329,15 @@ public class SaleRegister extends Utils {
                 for(Pair<Customer, Pair<Double, String>> p: V.getPay()){
                     if(cid == -1) return;
                     else if(cid == 0)
-                        table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
+                        table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getLocalDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
                     else{
                         if(p.getFirst().getId().equals(cid))
-                            table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
+                            table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getLocalDate(), V.getEmp(), p.getFirst(), p.getSecond().getFirst(), p.getSecond().getSecond()));
                     }
                         
                 }
                 if(cid == 0)
-                    table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getDate(), null, null, V.getNetAmt(), "Total"));
+                    table.getItems().add(new BillRow(V.getId(), V.getNo(), V.getLocalDate(), null, null, V.getNetAmt(), "Total"));
             });
             ArrayList<Double> sum = new ArrayList<>();
             table.getItems().forEach((K) -> {

@@ -32,34 +32,20 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Payment implements Unique, Serializable {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
     private boolean type;
     private Integer id, no;
-    private LocalDate date;
+    private String date;
     private Employee emp;
     private Vendor ven;
     private ArrayList<Pair<Customer, Pair<Double, String>>> pay;
     private String part;
     private Double netAmt;
 
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("no", no);
-        map.put("type", type);
-        map.put("date", date.toString());
-        map.put("emp", (emp == null ? null: emp.toMap()));
-        map.put("ven", (ven == null ? null : ven.toMap()));
-        map.put("pay", pay);
-        map.put("part", part);
-        map.put("netAmt", netAmt);
-        return map;
-    }
-    
     public Payment(Integer id, Integer no, LocalDate date, Employee emp, ArrayList<Pair<Customer, Pair<Double, String>>> pay, Double netAmt) {
         this.id = id;
         this.no = no;
-        this.date = date;
+        this.date = date.toString();
         this.netAmt = netAmt;
         this.emp = emp;
         this.pay = pay;
@@ -68,7 +54,7 @@ public class Payment implements Unique, Serializable {
 
     public Payment(Integer id, LocalDate date, Vendor ven, Double netAmt, String part) {
         this.id = id;
-        this.date = date;
+        this.date = date.toString();
         this.ven = ven;
         this.netAmt = netAmt;
         this.part = part;
@@ -88,8 +74,11 @@ public class Payment implements Unique, Serializable {
         return type;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
+    }
+    public LocalDate getLocalDate(){
+        return LocalDate.parse(date);
     }
 
     public Vendor getVen() {

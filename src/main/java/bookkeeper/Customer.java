@@ -30,29 +30,15 @@ import java.time.LocalDate;
  * @author shivam
  */
 public class Customer implements Serializable, Unique {
-    private static final long serialVersionUID = 6L;
+    private static final long serialVersionUID = 7L;
     private final Integer id;
     private String name;
     private City city;
     private Employee emp;
     private Double credit, debit;
-    private LocalDate opDate;
+    private String opDate;
     private Double due;
     private Integer days;
-
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("city", city.toMap());
-        map.put("emp", emp.toMap());
-        map.put("credit", credit);
-        map.put("debit", debit);
-        map.put("opDate", opDate.toString());
-        map.put("due", due);
-        map.put("days", days);
-        return map;
-    }
         
     public Customer(Integer id, String name) {
         this.id = id;
@@ -66,7 +52,7 @@ public class Customer implements Serializable, Unique {
         this.emp = emp;
         this.credit = credit;
         this.debit = debit;
-        this.opDate = opDate;
+        this.opDate = opDate.toString();
         this.due = due;
         this.days = days;
     }
@@ -109,8 +95,11 @@ public class Customer implements Serializable, Unique {
         return debit;
     }
 
-    public LocalDate getOpDate() {
+    public String getOpDate() {
         return opDate;
+    }
+    public LocalDate getLocalDate(){
+        return LocalDate.parse(opDate);
     }
 
     public Double getDue() {

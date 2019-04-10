@@ -30,10 +30,10 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Bill implements Serializable, Unique {
-    private static final long serialVersionUID = 4L;
+    private static final long serialVersionUID = 5L;
     private int id, no;
     private int type; //True = Sale; False = Purchase;
-    private LocalDate date;
+    private String date;
     private Customer cust;
     private Employee emp;
     private Vendor ven;
@@ -43,7 +43,7 @@ public class Bill implements Serializable, Unique {
     public Bill(int id, LocalDate date, Employee emp, Customer cust, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 1;
         this.id = id;
-        this.date = date;
+        this.date = date.toString();
         this.cust = cust;
         this.emp = emp;
         this.prod = prod;
@@ -55,7 +55,7 @@ public class Bill implements Serializable, Unique {
         this.type = type;
         this.id = id;
         this.no = no;
-        this.date = date;
+        this.date = date.toString();
         this.cust = cust;
         this.emp = emp;
         this.prod = prod;
@@ -66,7 +66,7 @@ public class Bill implements Serializable, Unique {
     public Bill(int id, LocalDate date, Vendor ven, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 0;
         this.id = id;
-        this.date = date;
+        this.date = date.toString();
         this.ven = ven;
         this.prod = prod;
         this.disc = disc;
@@ -101,10 +101,14 @@ public class Bill implements Serializable, Unique {
         return no;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
+    public LocalDate getLocalDate(){
+        return LocalDate.parse(date);
+    }
+    
     public Customer getCust() {
         return cust;
     }
@@ -128,20 +132,5 @@ public class Bill implements Serializable, Unique {
     @Override
     public String toString() {
         return "Bill{" + "# " + id + '}';
-    }
-    
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("no", no);
-        map.put("type", type);
-        map.put("date", date.toString());
-        map.put("cust", (cust == null ? null : cust.toMap()));
-        map.put("emp", (emp == null ? null: emp.toMap()));
-        map.put("ven", (ven == null ? null : ven.toMap()));
-        map.put("prod", prod);
-        map.put("disc", disc);
-        map.put("netAmt", netAmt);
-        return map;
     }
 }

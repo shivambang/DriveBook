@@ -104,7 +104,7 @@ public class PurchaseReport extends Utils{
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.getLocalDate().isBefore(fdate.getValue()) || V.getLocalDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
 

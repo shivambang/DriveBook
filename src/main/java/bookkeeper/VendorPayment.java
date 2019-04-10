@@ -102,7 +102,7 @@ public class VendorPayment extends Utils {
         part.setText("CASH");
         add(empGrid, part, 5, 2, HPos.LEFT);
         if(vid != -1){
-            date.setValue(pay_map.get(vid).getDate());
+            date.setValue(pay_map.get(vid).getLocalDate());
             id.setValue(vid);
             name.setValue(pay_map.get(vid).getVen());
             amt.setText(pay_map.get(vid).getNetAmt().toString());

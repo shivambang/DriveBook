@@ -94,7 +94,7 @@ public class Stock extends Utils {
             Map<Integer, Bill> map = new HashMap<>(bill_map);
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.getLocalDate().isBefore(fdate.getValue()) || V.getLocalDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
 

@@ -24,28 +24,17 @@
 package bookkeeper;
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  *
  * @author shivam
  */
 public class Vendor implements Serializable, Unique {
-    private static final long serialVersionUID = 2L;
+    private static final long serialVersionUID = 3L;
     private int id;
-    private LocalDate date;
+    private String date;
     private String name;
     private double credit, debit;
     
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("credit", credit);
-        map.put("debit", debit);
-        map.put("date", date.toString());
-        return map;
-    }
-
     public Vendor(int id, String name) {
         this.id = id;
         this.name = name;
@@ -60,7 +49,7 @@ public class Vendor implements Serializable, Unique {
 
     public Vendor(int id, LocalDate date, String name, double credit, double debit) {
         this.id = id;
-        this.date = date;
+        this.date = date.toString();
         this.name = name;
         this.credit = credit;
         this.debit = debit;
@@ -72,8 +61,11 @@ public class Vendor implements Serializable, Unique {
         return id;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
+    }
+    public LocalDate getLocalDate(){
+        return LocalDate.parse(date);
     }
 
     public String getName() {

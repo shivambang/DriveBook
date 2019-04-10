@@ -33,14 +33,6 @@ class Employee implements Serializable, Unique {
     private final Integer id;
     private String name;
     private double sale, credit, debit;
-
-    @Override
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        return map;
-    }
     
     Employee(int id, String name){
         this.id = id;

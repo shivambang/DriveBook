@@ -95,7 +95,7 @@ public class PurchaseBill extends Utils{
         ComboBox name = new ComboBox();
         addCIN(empGrid, id, name, 2, 1, 5, 1, venid, ven, ven_map);
         if(pid != -1){
-            date.setValue(pay_map.get(pid).getDate());
+            date.setValue(pay_map.get(pid).getLocalDate());
             id.setValue(pid);
         }
      

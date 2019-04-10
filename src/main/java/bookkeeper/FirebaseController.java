@@ -55,7 +55,7 @@ public class FirebaseController {
     
     public <K, V extends Unique> void write(K col, V doc) throws InterruptedException, ExecutionException, TimeoutException {
         DocumentReference docRef = db.collection(doc.getClass().getSimpleName()).document(col.toString());
-        ApiFuture<WriteResult> result = docRef.set(doc.toMap());
+        ApiFuture<WriteResult> result = docRef.set(doc);
         try{
             System.out.println("Update time : " + result.get(10, TimeUnit.SECONDS).getUpdateTime().toDate());
         } catch(TimeoutException ex){
