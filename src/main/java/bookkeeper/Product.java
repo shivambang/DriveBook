@@ -23,6 +23,8 @@
  */
 package bookkeeper;
 import static bookkeeper.Data.ven_map;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 
 /**
@@ -30,11 +32,17 @@ import java.io.Serializable;
  * @author shivam
  */
 public class Product implements Serializable, Unique {
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 8L;
     private int id;
     private String HSN, name;
     private Double vol, tax, pprice, sprice, stock;
     private Integer vendor;
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
 
     public Product(int id, String name) {
         this.id = id;

@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  */
 package bookkeeper;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 import java.time.LocalDate;
 /**
@@ -34,6 +36,12 @@ public class Vendor implements Serializable, Unique {
     private LocalDate date;
     private String name;
     private double credit, debit;
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
     
     public Vendor(int id, String name) {
         this.id = id;

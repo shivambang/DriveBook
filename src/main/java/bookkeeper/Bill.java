@@ -23,6 +23,8 @@
  */
 package bookkeeper;
 import static bookkeeper.Data.*;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Bill implements Serializable, Unique {
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 8L;
     private int id, no;
     private int type; //True = Sale; False = Purchase;
     private LocalDate date;
@@ -40,7 +42,12 @@ public class Bill implements Serializable, Unique {
     private Integer ven;
     private ArrayList<Pair<Product, ArrayList<Double>>> prod;
     private double disc, netAmt;
-
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
     public Bill(int id, LocalDate date, Employee emp, Customer cust, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 1;
         this.id = id;
@@ -140,4 +147,5 @@ public class Bill implements Serializable, Unique {
     public String toString() {
         return "Bill{" + "# " + id + '}';
     }
+
 }

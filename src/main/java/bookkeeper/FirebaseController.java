@@ -19,20 +19,27 @@ package bookkeeper;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.Timestamp;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Shivam
@@ -51,31 +58,56 @@ public class FirebaseController {
         FirebaseApp.initializeApp(options);
 
         db = FirestoreClient.getFirestore();
+        try {
+            test();
+        } catch (Exception ex) {
+            Logger.getLogger(FirebaseController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public <K, V> void write(K col, V doc) throws InterruptedException, ExecutionException, TimeoutException {
         DocumentReference docRef = db.collection(doc.getClass().getSimpleName()).document(col.toString());
         ApiFuture<WriteResult> result = docRef.set(doc);
         try{
-            System.out.println("Update time : " + result.get(10, TimeUnit.SECONDS).getUpdateTime().toDate());
+            Timestamp t = result.get(10, TimeUnit.SECONDS).getUpdateTime();
+            System.out.println("Update time : " + t.toDate());
+            File file = new File(System.getProperty("user.dir")+"\\data\\sync.txt");
+            file.createNewFile();
+            ObjectOutputStream writeObj = new ObjectOutputStream(new FileOutputStream(file, true));
+            writeObj.writeObject(t);
         } catch(TimeoutException ex){
             result.cancel(true);
             throw new TimeoutException();
-        }
+        } catch(IOException ex){
+        };
     }
     
-    public void test() throws Exception{
-        DocumentReference docRef = db.collection("users").document("alovelace");
-        // Add document data  with id "alovelace" using a hashmap
-        Map<String, Object> data = new HashMap<>();
-        data.put("first", "Ada");
-        data.put("last", "Lovelace");
-        data.put("born", 1815);
-        //asynchronously write data
-        ApiFuture<WriteResult> result = docRef.set(data);
-        // ...
-        // result.get() blocks on response
-        System.out.println("Update time : " + result.get().getUpdateTime().toDate());          
+    public static void test() throws Exception{
+//        DocumentReference docRef = db.collection("users").document("alovelace");
+//        // Add document data  with id "alovelace" using a hashmap
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("first", "Ada");
+//        data.put("last", "Lovelace");
+//        data.put("born", 1815);
+//        //asynchronously write data
+//        ApiFuture<WriteResult> result = docRef.set(data);
+//        // ...
+//        // result.get() blocks on response
+//        System.out.println("Update time : " + result.get().getUpdateTime().toDate());    
+
+        DocumentReference docRef = db.collection("City").document("1");
+        // asynchronously retrieve the document
+        ApiFuture<DocumentSnapshot> future = docRef.get();
+        // block on response
+        DocumentSnapshot document = future.get();
+        City city = null;
+        if (document.exists()) {
+          // convert document to POJO
+          city = document.toObject(City.class);
+          System.out.println(city.getName());
+        } else {
+          System.out.println("No such document!");
+        }
     }
     
     

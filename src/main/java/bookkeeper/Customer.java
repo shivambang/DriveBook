@@ -24,6 +24,8 @@
 package bookkeeper;
 import static bookkeeper.Data.city_map;
 import static bookkeeper.Data.emp_map;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -32,7 +34,7 @@ import java.time.LocalDate;
  * @author shivam
  */
 public class Customer implements Serializable, Unique {
-    private static final long serialVersionUID = 7L;
+    private static final long serialVersionUID = 8L;
     private final Integer id;
     private String name;
     private Integer city;
@@ -41,6 +43,12 @@ public class Customer implements Serializable, Unique {
     private LocalDate opDate;
     private Double due;
     private Integer days;
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
         
     public Customer(Integer id, String name) {
         this.id = id;

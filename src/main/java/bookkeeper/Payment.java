@@ -25,6 +25,8 @@ package bookkeeper;
 
 import static bookkeeper.Data.emp_map;
 import static bookkeeper.Data.ven_map;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ import java.util.ArrayList;
  * @author shivam
  */
 public class Payment implements Unique, Serializable {
-    private static final long serialVersionUID = 3L;
+    private static final long serialVersionUID = 4L;
     private boolean type;
     private Integer id, no;
     private LocalDate date;
@@ -43,6 +45,12 @@ public class Payment implements Unique, Serializable {
     private ArrayList<Pair<Customer, Pair<Double, String>>> pay;
     private String part;
     private Double netAmt;
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
 
     public Payment(Integer id, Integer no, LocalDate date, Employee emp, ArrayList<Pair<Customer, Pair<Double, String>>> pay, Double netAmt) {
         this.id = id;

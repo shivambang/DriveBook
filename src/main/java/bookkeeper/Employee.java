@@ -22,6 +22,8 @@
  * THE SOFTWARE.
  */
 package bookkeeper;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.annotation.ServerTimestamp;
 import java.io.Serializable;
 
 /**
@@ -29,10 +31,16 @@ import java.io.Serializable;
  * @author shivam
  */
 class Employee implements Serializable, Unique {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private final Integer id;
     private String name;
     private double sale, credit, debit;
+    
+    @ServerTimestamp
+    public Timestamp getTimestamp() {
+        return null;
+    }
+    
     
     Employee(int id, String name){
         this.id = id;

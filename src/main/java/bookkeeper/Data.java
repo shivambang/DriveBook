@@ -62,7 +62,9 @@ public class Data {
         File file;
         FileInputStream inp;
         ObjectInputStream readObj;
-        file = new File(s.concat(".txt"));
+        file = new File(System.getProperty("user.dir")+"\\data\\");
+        if(!file.exists())  file.mkdir();
+        file = new File(System.getProperty("user.dir")+"\\data\\"+s.concat(".txt"));
         
         try {
             file.createNewFile();
@@ -92,7 +94,9 @@ public class Data {
         File file;
         FileOutputStream out;
         ObjectOutputStream writeObj;
-        file = new File(s.concat(".txt"));
+        file = new File(System.getProperty("user.dir")+"\\data\\");
+        if(!file.exists())  file.mkdir();
+        file = new File(System.getProperty("user.dir")+"\\data\\"+s.concat(".txt"));
         file.createNewFile();
         out = new FileOutputStream(file, false);
         writeObj = new ObjectOutputStream(out);
