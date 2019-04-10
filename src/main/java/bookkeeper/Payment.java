@@ -73,6 +73,9 @@ public class Payment implements Unique, Serializable {
     public boolean isType() {
         return type;
     }
+    public boolean boolType() {
+        return type;
+    }
 
     public String getDate() {
         return date.toString();

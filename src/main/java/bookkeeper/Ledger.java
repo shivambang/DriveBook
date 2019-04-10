@@ -114,7 +114,7 @@ public class Ledger extends Utils {
             ArrayList<BillRow> arr = new ArrayList();
             Map<Integer, Payment> map = new HashMap<>();
             pay_map.forEach((K, V) -> {
-                if(!V.isType())
+                if(!V.boolType())
                     map.put(K, V);
             });
             Set<Integer> set = new HashSet<>();
@@ -144,7 +144,7 @@ public class Ledger extends Utils {
             
             Map<Integer, Bill> bmap = new HashMap<>();
             bill_map.forEach((K, V) -> {
-                if(!V.isType())
+                if(!V.boolType())
                     bmap.put(K, V);
             });
             Set<Integer> bset = new HashSet<>();
@@ -261,7 +261,7 @@ public class Ledger extends Utils {
             ArrayList<BillRow> arr = new ArrayList<>();
             Map<Integer, Payment> map = new HashMap<>();
             pay_map.forEach((K, V) -> {
-                if(V.isType())
+                if(V.boolType())
                     map.put(K, V);
             });
             Set<Integer> set = new HashSet<>();
@@ -296,7 +296,7 @@ public class Ledger extends Utils {
             });
             Map<Integer, Bill> bmap = new HashMap<>();
             bill_map.forEach((K, V) -> {
-                if(V.isType())
+                if(V.boolType())
                     bmap.put(K, V);
             });
             Set<Integer> bset = new HashSet<>();

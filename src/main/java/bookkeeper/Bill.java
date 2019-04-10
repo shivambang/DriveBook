@@ -77,11 +77,8 @@ public class Bill implements Serializable, Unique {
         this.no = no;
     }
 
-    public boolean isType() {
-        if(type == 0)
-            return false;
-        else
-            return true;
+    public boolean boolType() {
+        return type != 0;
     }
 
     public int getType() {

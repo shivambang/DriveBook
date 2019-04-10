@@ -104,7 +104,7 @@ public class SaleReport extends Utils{
         done.setOnAction((func) -> {
             Map<Integer, Bill> map = new HashMap<>();
             bill_map.forEach((K, V) -> {
-                if(V.isType())
+                if(V.boolType())
                     map.put(K, V);
             });
             Set<Integer> set = new HashSet<>();
