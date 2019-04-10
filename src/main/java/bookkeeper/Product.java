@@ -35,21 +35,6 @@ public class Product implements Serializable, Unique {
     private Double vol, tax, pprice, sprice, stock;
     private Vendor vendor;
 
-    @Override
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("HSN", HSN);
-        map.put("vol", vol);
-        map.put("tax", tax);
-        map.put("pprice", pprice);
-        map.put("sprice", sprice);
-        map.put("stock", stock);
-        map.put("vendor", vendor.toMap());
-        return map;
-    }
-
     public Product(int id, String name) {
         this.id = id;
         this.name = name;

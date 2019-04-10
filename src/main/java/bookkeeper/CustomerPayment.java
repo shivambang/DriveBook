@@ -94,7 +94,7 @@ public class CustomerPayment extends Utils {
         date.setPrefSize(200, 25);
         listen(date, LocalDate.now());
         if(id != -1)
-            date.setValue(pay_map.get(id).getDate());
+            date.setValue(pay_map.get(id).localDate());
         add(empGrid, date, 5, 0, HPos.LEFT);
         
         addEIN(empGrid, 2, 1, 5, 1);
@@ -124,8 +124,8 @@ public class CustomerPayment extends Utils {
                             int counter = 1;
                             for(Map.Entry<Integer, Payment> V: pay_map.entrySet()){
                                 if(V.getValue().getEmp().getId().equals(newValue)){
-                                    if(V.getValue().getDate().getMonth().equals(date.getValue().getMonth())
-                                            && V.getValue().getDate().getYear() == date.getValue().getYear())
+                                    if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
+                                            && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
                                 }
                             }

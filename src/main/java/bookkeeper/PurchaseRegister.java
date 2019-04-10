@@ -111,11 +111,11 @@ public class PurchaseRegister extends Utils {
                 Bill b = V;
                 Vendor c = b.getVen();
                 for(Pair<Product, ArrayList<Double>> p: b.getProd()){
-                    table.getItems().add(new BillRow(K, V.getDate(), c, p.getFirst(), p.getSecond().get(1), p.getSecond().get(0), p.getSecond().get(6)));
+                    table.getItems().add(new BillRow(K, V.localDate(), c, p.getFirst(), p.getSecond().get(1), p.getSecond().get(0), p.getSecond().get(6)));
                 }
                 
                 double amt = b.getNetAmt();
-                table.getItems().add(new BillRow(K, V.getDate(), new Vendor(-1, "TOTAL"), null, null, null, amt));
+                table.getItems().add(new BillRow(K, V.localDate(), new Vendor(-1, "TOTAL"), null, null, null, amt));
             });
             Tab node = new Tab("View", view(tab, table));
             tab.getTabs().add(node);
@@ -267,7 +267,7 @@ public class PurchaseRegister extends Utils {
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
             set.forEach((value) -> { map.remove(value); } );

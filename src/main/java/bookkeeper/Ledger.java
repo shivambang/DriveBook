@@ -114,12 +114,12 @@ public class Ledger extends Utils {
             ArrayList<BillRow> arr = new ArrayList();
             Map<Integer, Payment> map = new HashMap<>();
             pay_map.forEach((K, V) -> {
-                if(!V.isType())
+                if(!V.boolType())
                     map.put(K, V);
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
             set.forEach((value) -> { map.remove(value); } );
@@ -128,38 +128,38 @@ public class Ledger extends Utils {
             else if((id.getValue().equals(0)));
             else{
                 Vendor V = ven_map.get((int)id.getValue());
-                arr.add(new BillRow(V.getId(), V.getDate(), V, null, V.getCredit(), String.format("Opening Credit")));
-                arr.add(new BillRow(V.getId(), V.getDate(), V, V.getDebit(), null, String.format("Opening Debit")));
+                arr.add(new BillRow(V.getId(), V.localDate(), V, null, V.getCredit(), String.format("Opening Credit")));
+                arr.add(new BillRow(V.getId(), V.localDate(), V, V.getDebit(), null, String.format("Opening Debit")));
             }
             map.forEach((K, V) -> {
                 if(id.getValue() == null) return;
                 else if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getVen().getId(), V.getDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
+                    arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
                 else{
                     if(V.getVen().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getVen().getId(), V.getDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
+                        arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), null, V.getNetAmt(), String.format("Pay #%d: ", K)+V.getPart()));
                 }
                         
             });
             
             Map<Integer, Bill> bmap = new HashMap<>();
             bill_map.forEach((K, V) -> {
-                if(!V.isType())
+                if(!V.boolType())
                     bmap.put(K, V);
             });
             Set<Integer> bset = new HashSet<>();
             bmap.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     bset.add(K);
             });
             bset.forEach((value) -> { bmap.remove(value); } );
             bmap.forEach((K, V) -> {
                 if(id.getValue() == null) return;
                 else if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getVen().getId(), V.getDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
+                    arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
                 else{
                     if(V.getVen().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getVen().getId(), V.getDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
+                        arr.add(new BillRow(V.getVen().getId(), V.localDate(), V.getVen(), V.getNetAmt(), null, String.format("Bill #%d", K)));
                 }
                         
             });
@@ -261,12 +261,12 @@ public class Ledger extends Utils {
             ArrayList<BillRow> arr = new ArrayList<>();
             Map<Integer, Payment> map = new HashMap<>();
             pay_map.forEach((K, V) -> {
-                if(V.isType())
+                if(V.boolType())
                     map.put(K, V);
             });
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
 
@@ -276,9 +276,9 @@ public class Ledger extends Utils {
             if(id.getValue() == null) return;
             else if((id.getValue().equals(0)));
             else{
-                arr.add(new BillRow((int)id.getValue(), cust_map.get((int)id.getValue()).getOpDate(), cust_map.get((int)id.getValue()), 
+                arr.add(new BillRow((int)id.getValue(), cust_map.get((int)id.getValue()).localDate(), cust_map.get((int)id.getValue()), 
                         null, cust_map.get((int)id.getValue()).getCredit(), new Hyperlink("Opening Credit")));
-                arr.add(new BillRow((int)id.getValue(), cust_map.get((int)id.getValue()).getOpDate(), cust_map.get((int)id.getValue()), 
+                arr.add(new BillRow((int)id.getValue(), cust_map.get((int)id.getValue()).localDate(), cust_map.get((int)id.getValue()), 
                         cust_map.get((int)id.getValue()).getDebit(), null, new Hyperlink("Opening Debit")));
             }
             map.forEach((K, V) -> {
@@ -286,22 +286,22 @@ public class Ledger extends Utils {
                     Hyperlink txt = new Hyperlink(String.format("Pay #%d: ", V.getNo())+p.getSecond().getSecond());
                     txt.setId("text");
                     if(id.getValue().equals(0))
-                        arr.add(new BillRow(p.getFirst().getId(), V.getDate(), p.getFirst(), null, p.getSecond().getFirst(), txt));
+                        arr.add(new BillRow(p.getFirst().getId(), V.localDate(), p.getFirst(), null, p.getSecond().getFirst(), txt));
                     else{
                         if(p.getFirst().getId().equals(id.getValue()))
-                            arr.add(new BillRow(p.getFirst().getId(), V.getDate(), p.getFirst(), null, p.getSecond().getFirst(), txt));
+                            arr.add(new BillRow(p.getFirst().getId(), V.localDate(), p.getFirst(), null, p.getSecond().getFirst(), txt));
                     }
                         
                 }
             });
             Map<Integer, Bill> bmap = new HashMap<>();
             bill_map.forEach((K, V) -> {
-                if(V.isType())
+                if(V.boolType())
                     bmap.put(K, V);
             });
             Set<Integer> bset = new HashSet<>();
             bmap.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     bset.add(K);
             });
             bset.forEach((value) -> { bmap.remove(value); } );
@@ -315,17 +315,17 @@ public class Ledger extends Utils {
                 txt.setOnAction((f) -> { billWin(V); });
                 txt.setId("link");
                 if(id.getValue().equals(0))
-                    arr.add(new BillRow(V.getCust().getId(), V.getDate(), V.getCust(), V.getNetAmt(), null, txt));
+                    arr.add(new BillRow(V.getCust().getId(), V.localDate(), V.getCust(), V.getNetAmt(), null, txt));
                 else{
                     if(V.getCust().getId().equals(id.getValue()))
-                        arr.add(new BillRow(V.getCust().getId(), V.getDate(), V.getCust(), V.getNetAmt(), null, txt));
+                        arr.add(new BillRow(V.getCust().getId(), V.localDate(), V.getCust(), V.getNetAmt(), null, txt));
                 }
                         
             });
             /*arr.sort((BillRow b1, BillRow b2) -> {
-                if(b1.getDate().isBefore(b2.getDate()))
+                if(b1.localDate().isBefore(b2.localDate()))
                     return -1;
-                else //if(b1.getDate().isAfter(b2.getDate()))
+                else //if(b1.localDate().isAfter(b2.localDate()))
                     return 1;
                 else{
                     if(b1.getIqty() == null)

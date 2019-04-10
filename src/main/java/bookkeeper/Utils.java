@@ -728,7 +728,7 @@ public class Utils {
         view.setOnAction((func) -> {
             BillRow row = (BillRow) table.getItems().get(table.getSelectionModel().getFocusedIndex());
             Bill b = bill_map.get(row.getId());
-            if(b.isType()){
+            if(b.boolType()){
                 billWin(b);
             }
             else{
@@ -742,7 +742,7 @@ public class Utils {
             BillRow row = (BillRow) table.getItems().get(table.getSelectionModel().getFocusedIndex());
             Bill b = bill_map.get(row.getId());
             Tab node;
-            if(b.isType()){
+            if(b.boolType()){
                 SaleBill sb = new SaleBill(row.getId());
                 node = sb.node();
             }
@@ -767,7 +767,7 @@ public class Utils {
             
             if(alert.getResult() == ButtonType.YES){
                 Bill b = bill_map.get(row.getId());
-                if(b.isType()){
+                if(b.boolType()){
                     for(Pair <Product, ArrayList<Double>> p: b.getProd())
                         prod_map.get(p.getFirst().getId()).setStock(p.getSecond().get(0));
                 }
@@ -868,7 +868,7 @@ public class Utils {
         edit.setOnAction((func) -> {
             BillRow row = (BillRow) table.getItems().get(table.getSelectionModel().getFocusedIndex());
             Tab node;
-            if(pay_map.get(row.getId()).isType()){
+            if(pay_map.get(row.getId()).boolType()){
                 CustomerPayment sb = new CustomerPayment(row.getId());
                 node = sb.node();
             }
@@ -904,7 +904,7 @@ public class Utils {
             
             if(alert.getResult() == ButtonType.YES){
                 Payment b = pay_map.get(row.getId());
-                if(b.isType()){
+                if(b.boolType()){
                     for(Pair<Customer, Pair<Double, String>> p: b.getPay()){
                         p.getFirst().setCredit(-p.getSecond().getFirst());
                     }
@@ -932,12 +932,12 @@ public class Utils {
     public List<Bill> custbills(LocalDate fdate, LocalDate tdate, GridPane venGrid){
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isBefore(fdate) || V.getDate().isAfter(tdate))
+            if(V.localDate().isBefore(fdate) || V.localDate().isAfter(tdate))
                 set.add(K);
         });
 
@@ -972,9 +972,9 @@ public class Utils {
         set.forEach((value) -> { map.remove(value); } );
         List<Bill> list = new ArrayList(map.values());
         list.sort((Bill b1, Bill b2) -> {
-            if(b1.getDate().isBefore(b2.getDate()))
+            if(b1.localDate().isBefore(b2.localDate()))
                 return -1;
-            else if(b1.getDate().isAfter(b2.getDate()))
+            else if(b1.localDate().isAfter(b2.localDate()))
                 return 1;
             else{
                 if(b1.getEmp().getName().compareTo(b2.getEmp().getName()) < 0)
@@ -991,12 +991,12 @@ public class Utils {
     public Map<Integer, Bill> venbills(LocalDate fdate, LocalDate tdate, Integer id){
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(!V.isType())
+            if(!V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isBefore(fdate) || V.getDate().isAfter(tdate))
+            if(V.localDate().isBefore(fdate) || V.localDate().isAfter(tdate))
                 set.add(K);
         });
 
@@ -1015,12 +1015,12 @@ public class Utils {
         //type 0: Employee
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1051,12 +1051,12 @@ public class Utils {
 
         Map<Integer, Payment> pmap = new HashMap<>();
         pay_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 pmap.put(K, V);
         });
         Set<Integer> pset = new HashSet<>();
         pmap.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 pset.add(K);
         });
         pset.forEach((value) -> { pmap.remove(value); } );
@@ -1076,12 +1076,12 @@ public class Utils {
         //type 0: Employee
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1116,12 +1116,12 @@ public class Utils {
 
         Map<Integer, Payment> pmap = new HashMap<>();
         pay_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 pmap.put(K, V);
         });
         Set<Integer> pset = new HashSet<>();
         pmap.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 pset.add(K);
         });
         pset.forEach((value) -> { pmap.remove(value); } );
@@ -1139,12 +1139,12 @@ public class Utils {
     public Map<Integer, Double> vdues(LocalDate date, Integer cid){
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(!V.isType())
+            if(!V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1168,7 +1168,7 @@ public class Utils {
 
         Map<Integer, Payment> pmap = new HashMap<>();
         pay_map.forEach((K, V) -> {
-            if(!V.isType())
+            if(!V.boolType())
                 pmap.put(K, V);
         });
 
@@ -1190,12 +1190,12 @@ public class Utils {
     public Map<Integer, ArrayList<Double>> dues(LocalDate date, Integer eid, Integer cid){
         Map<Integer, Bill> map = new HashMap<>();
         bill_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 map.put(K, V);
         });
         Set<Integer> set = new HashSet<>();
         map.forEach((K, V) -> {
-            if(V.getDate().isAfter(date))
+            if(V.localDate().isAfter(date))
                 set.add(K);
         });
 
@@ -1215,7 +1215,7 @@ public class Utils {
 
         Map<Integer, Payment> pmap = new HashMap<>();
         pay_map.forEach((K, V) -> {
-            if(V.isType())
+            if(V.boolType())
                 pmap.put(K, V);
         });
         Set<Integer> pset = new HashSet<>();
@@ -1265,7 +1265,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getDate().isAfter(date.minusDays(90))) return;
+                if(V.localDate().isAfter(date.minusDays(90))) return;
                 csal.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1278,7 +1278,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(date.minusDays(89)) || V.getDate().isAfter(date.minusDays(60))) return;
+                if(V.localDate().isBefore(date.minusDays(89)) || V.localDate().isAfter(date.minusDays(60))) return;
                 csal2.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1291,7 +1291,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(date.minusDays(59)) || V.getDate().isAfter(date.minusDays(30))) return;
+                if(V.localDate().isBefore(date.minusDays(59)) || V.localDate().isAfter(date.minusDays(30))) return;
                 csal3.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1304,7 +1304,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(date.minusDays(29)) || V.getDate().isAfter(date.minusDays(15))) return;
+                if(V.localDate().isBefore(date.minusDays(29)) || V.localDate().isAfter(date.minusDays(15))) return;
                 csal4.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }
@@ -1317,7 +1317,7 @@ public class Utils {
         if(cid == null);
         else if(cid.equals(0)){
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(date.minusDays(14))) return;
+                if(V.localDate().isBefore(date.minusDays(14))) return;
                 csal5.merge(V.getCust().getId(), V.getNetAmt(), (V1, V2) -> V1 + V2);
             });
         }

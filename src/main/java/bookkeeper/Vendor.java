@@ -24,7 +24,6 @@
 package bookkeeper;
 import java.io.Serializable;
 import java.time.LocalDate;
-
 /**
  *
  * @author shivam
@@ -36,16 +35,6 @@ public class Vendor implements Serializable, Unique {
     private String name;
     private double credit, debit;
     
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("credit", credit);
-        map.put("debit", debit);
-        map.put("date", date.toString());
-        return map;
-    }
-
     public Vendor(int id, String name) {
         this.id = id;
         this.name = name;
@@ -72,7 +61,10 @@ public class Vendor implements Serializable, Unique {
         return id;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
+        return date.toString();
+    }
+    public LocalDate localDate(){
         return date;
     }
 

@@ -77,11 +77,8 @@ public class Bill implements Serializable, Unique {
         this.no = no;
     }
 
-    public boolean isType() {
-        if(type == 0)
-            return false;
-        else
-            return true;
+    public boolean boolType() {
+        return type != 0;
     }
 
     public int getType() {
@@ -101,10 +98,14 @@ public class Bill implements Serializable, Unique {
         return no;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public String getDate() {
+        return date.toString();
     }
 
+    public LocalDate localDate(){
+        return date;
+    }
+    
     public Customer getCust() {
         return cust;
     }
@@ -128,20 +129,5 @@ public class Bill implements Serializable, Unique {
     @Override
     public String toString() {
         return "Bill{" + "# " + id + '}';
-    }
-    
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("no", no);
-        map.put("type", type);
-        map.put("date", date.toString());
-        map.put("cust", (cust == null ? null : cust.toMap()));
-        map.put("emp", (emp == null ? null: emp.toMap()));
-        map.put("ven", (ven == null ? null : ven.toMap()));
-        map.put("prod", prod);
-        map.put("disc", disc);
-        map.put("netAmt", netAmt);
-        return map;
     }
 }

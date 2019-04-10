@@ -109,7 +109,7 @@ public class SaleBill extends Utils {
         date.setPrefSize(150, 25);
         listen(date, LocalDate.now());
         if(id != -1)
-            date.setValue(bill_map.get(id).getDate());
+            date.setValue(bill_map.get(id).localDate());
         add(empGrid, date, 5, 0, HPos.LEFT);
         
         addIN(empGrid, 2, 1, 5, 1, 2, 2, 5, 2, 1);
@@ -129,8 +129,8 @@ public class SaleBill extends Utils {
                             int counter = 1;
                             for(Map.Entry<Integer, Bill> V: bill_map.entrySet()){
                                 if(V.getValue().getType() == 1 && V.getValue().getEmp().getId().equals(newValue)){
-                                    if(V.getValue().getDate().getMonth().equals(date.getValue().getMonth())
-                                            && V.getValue().getDate().getYear() == date.getValue().getYear())
+                                    if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
+                                            && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
                                 }
                             }
@@ -247,7 +247,7 @@ public class SaleBill extends Utils {
         date.setPrefSize(150, 25);
         listen(date, LocalDate.now());
         if(id != -1)
-            date.setValue(bill_map.get(id).getDate());
+            date.setValue(bill_map.get(id).localDate());
         add(empGrid, date, 5, 0, HPos.LEFT);
         
         addIN(empGrid, 2, 1, 5, 1, 2, 2, 5, 2, 1);
@@ -267,8 +267,8 @@ public class SaleBill extends Utils {
                             int counter = 1;
                             for(Map.Entry<Integer, Bill> V: bill_map.entrySet()){
                                 if(V.getValue().getType() == 2 && V.getValue().getEmp().getId().equals(newValue)){
-                                    if(V.getValue().getDate().getMonth().equals(date.getValue().getMonth())
-                                            && V.getValue().getDate().getYear() == date.getValue().getYear())
+                                    if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
+                                            && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;
                                 }
                             }

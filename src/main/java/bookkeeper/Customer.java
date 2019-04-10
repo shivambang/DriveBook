@@ -39,20 +39,6 @@ public class Customer implements Serializable, Unique {
     private LocalDate opDate;
     private Double due;
     private Integer days;
-
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        map.put("city", city.toMap());
-        map.put("emp", emp.toMap());
-        map.put("credit", credit);
-        map.put("debit", debit);
-        map.put("opDate", opDate.toString());
-        map.put("due", due);
-        map.put("days", days);
-        return map;
-    }
         
     public Customer(Integer id, String name) {
         this.id = id;
@@ -109,7 +95,10 @@ public class Customer implements Serializable, Unique {
         return debit;
     }
 
-    public LocalDate getOpDate() {
+    public String getDate() {
+        return opDate.toString();
+    }
+    public LocalDate localDate(){
         return opDate;
     }
 

@@ -29,5 +29,4 @@ package bookkeeper;
  */
 public interface Unique {
     public Integer getId();
-    public HashMap<String, Object> toMap();
 }

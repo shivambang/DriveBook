@@ -42,20 +42,6 @@ public class Payment implements Unique, Serializable {
     private String part;
     private Double netAmt;
 
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("no", no);
-        map.put("type", type);
-        map.put("date", date.toString());
-        map.put("emp", (emp == null ? null: emp.toMap()));
-        map.put("ven", (ven == null ? null : ven.toMap()));
-        map.put("pay", pay);
-        map.put("part", part);
-        map.put("netAmt", netAmt);
-        return map;
-    }
-    
     public Payment(Integer id, Integer no, LocalDate date, Employee emp, ArrayList<Pair<Customer, Pair<Double, String>>> pay, Double netAmt) {
         this.id = id;
         this.no = no;
@@ -87,8 +73,14 @@ public class Payment implements Unique, Serializable {
     public boolean isType() {
         return type;
     }
+    public boolean boolType() {
+        return type;
+    }
 
-    public LocalDate getDate() {
+    public String getDate() {
+        return date.toString();
+    }
+    public LocalDate localDate(){
         return date;
     }
 

@@ -94,7 +94,7 @@ public class Stock extends Utils {
             Map<Integer, Bill> map = new HashMap<>(bill_map);
             Set<Integer> set = new HashSet<>();
             map.forEach((K, V) -> {
-                if(V.getDate().isBefore(fdate.getValue()) || V.getDate().isAfter(tdate.getValue()))
+                if(V.localDate().isBefore(fdate.getValue()) || V.localDate().isAfter(tdate.getValue()))
                     set.add(K);
             });
 
@@ -103,7 +103,7 @@ public class Stock extends Utils {
             else if(id.getValue().equals(0)){
                 map.forEach((K, V) -> {
                     for(Pair<Product, ArrayList<Double>> p: V.getProd()){
-                        if(V.isType())
+                        if(V.boolType())
                             table.getItems().add(new BillRow(K, p.getFirst(), p.getSecond().get(0), null));
                         else
                             table.getItems().add(new BillRow(K, p.getFirst(), null, p.getSecond().get(0)));
@@ -115,7 +115,7 @@ public class Stock extends Utils {
                 map.forEach((K, V) -> {
                     for(Pair<Product, ArrayList<Double>> p: V.getProd()){
                         if(p.getFirst().getId().equals(id.getValue())){
-                            if(V.isType())
+                            if(V.boolType())
                                 table.getItems().add(new BillRow(K, p.getFirst(), p.getSecond().get(0), null));
                             else
                                 table.getItems().add(new BillRow(K, p.getFirst(), null, p.getSecond().get(0)));

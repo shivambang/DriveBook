@@ -33,14 +33,6 @@ public class City implements Serializable, Unique {
     private int id;
     private String name;
 
-    @Override
-    public HashMap<String, Object> toMap(){
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("id", id);
-        map.put("name", name);
-        return map;
-    }
-    
     public City(int id, String name) {
         this.id = id;
         this.name = name;
