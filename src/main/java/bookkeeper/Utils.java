@@ -186,6 +186,7 @@ public class Utils {
                     arr.add(c);
             }
         } else arr = new ArrayList<>(items);
+        items.sort((a, b) -> a.toString().compareTo(b.toString()));
         box.setItems(FXCollections.observableArrayList(arr));
         box.setVisibleRowCount(5);
 

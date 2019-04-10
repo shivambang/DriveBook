@@ -123,7 +123,8 @@ public class CustomerPayment extends Utils {
                         else{
                             int counter = 1;
                             for(Map.Entry<Integer, Payment> V: pay_map.entrySet()){
-                                if(V.getValue().emp().getId().equals(newValue)){
+                                if(V.getValue().getEmpId() == null) continue;
+                                if(V.getValue().getEmpId().equals(newValue)){
                                     if(V.getValue().localDate().getMonth().equals(date.getValue().getMonth())
                                             && V.getValue().localDate().getYear() == date.getValue().getYear())
                                         counter++;

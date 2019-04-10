@@ -177,7 +177,7 @@ public class CustomerDriver extends Utils {
             name.setText(c.getName());
             citi.setValue(c.city());
             citi.setDisable(true);
-            eid.setValue(c.emp());
+            eid.setValue(c.getEmpId());
             ename.setValue(c.emp());
             eid.setDisable(true);
             ename.setDisable(true);
