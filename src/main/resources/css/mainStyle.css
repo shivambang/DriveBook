@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 29, 2018, 11:00:34 PM
+    Author     : shivam
+*/
+
+/*BookKeeper*/
+#main {
+    -fx-background-image: url("back.jpg");
+    -fx-background-repeat: no-repeat;
+}
+#login {
+    -fx-background-color: #fafbfc;
+    -fx-background-radius: 9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.7), 10, 0, 0, 0);
+}
+.button{
+    -fx-background-color: #dddddd;
+    -fx-transition-duration: 0.4s;
+}
+.button:hover{
+    -fx-background-color: #cccccc;
+    -fx-cursor: hand;
+}
+

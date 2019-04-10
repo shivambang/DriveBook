@@ -1,0 +1,301 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : May 30, 2018, 10:25:01 PM
+    Author     : shivam
+*/
+
+/*myBooks*/
+#myBooks {
+    -fx-background-color: #F8FBFC;
+}
+#options{
+    -fx-background-color: #103265;
+}
+#lbl{
+    -fx-background-color: #0C274F;
+}
+#main label{
+    -fx-underline: true;
+    -fx-font: bold 30px "Open Sans";
+}
+#sbill, #sreg, #spay, #scus, #pbill, #preg, #ppay, #pven, #mstk, #mleg, #mpro, #memp{
+    -fx-text-fill: #B1C9EC;
+    -fx-font: 18px "Open Sans";
+    -fx-transition-duration: 0.4s;
+}
+#repo{
+    -fx-background-color: #F8FBFC;
+}
+#cust_repo{
+    -fx-background-color: #FAFBFC;
+    -fx-background-radius: 9;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0);
+}
+
+#sbill:hover,
+#sreg:hover,
+#spay:hover,
+#scus:hover,
+#pbill:hover,
+#preg:hover,
+#ppay:hover,
+#pven:hover,
+#mstk:hover,
+#mleg:hover,
+#mpro:hover,
+#memp:hover,
+#misc:hover,
+#pur:hover,
+#sale:hover,
+#rep:hover{
+    -fx-border-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-underline: false;
+    -fx-cursor: hand;
+}
+
+#sbill:visited,
+#sreg:visited,
+#spay:visited,
+#scus:visited,
+#pbill:visited,
+#preg:visited,
+#ppay:visited,
+#pven:visited,
+#mstk:visited,
+#mleg:visited,
+#mpro:visited,
+#memp:visited,
+#misc:visited,
+#pur:visited,
+#sale:visited,
+#rep:visited{
+    -fx-border-color: transparent;
+    -fx-text-fill: #42D9FF;
+    -fx-underline: false;
+}
+
+#link {
+    -fx-background-insets: 0 0 0 0;
+    -fx-border-width: 0;
+    -fx-text-fill: #0080A0;
+    -fx-font: 16px monospace;
+}
+
+#link:hover {
+    -fx-border-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-cursor: hand;
+}
+
+#link:visited {
+    -fx-border-color: transparent;
+    -fx-text-fill: #0080A0;
+    -fx-underline: false;
+}
+
+#text {
+    -fx-text-fill: #000000;
+    -fx-font: 16px monospace;
+}
+
+#text:hover {
+    -fx-border-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-cursor: default;
+    -fx-underline: false;
+}
+
+#text:visited {
+    -fx-border-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-underline: false;
+}
+
+.tab .tab-label{
+    -fx-font: normal 16px "Open Sans";
+}
+
+.tab-pane .tab-header-area .headers-region .tab{
+}
+
+.tab-pane:focused .tab-header-area .headers-region .tab:selected .focus-indicator{
+}
+
+.button {
+    -fx-text-fill: #ffffff;
+    -fx-font: lighter 18px "sans-serif";
+    -fx-background-color: #0080A0;
+    -fx-border-width: 0.1em;
+    -fx-border-style: solid;
+    -fx-border-color: transparent;
+    -fx-padding: 0.25em 0.6em 0.25em 0.6em;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-effect: innershadow(three-pass-box, rgba(255,255,255,0.1), 0, 0, 0, 70);    
+}
+
+.button:focused {
+    -fx-effect: innershadow(three-pass-box, rgba(255,255,255,0.1), 0, 0, 0, 70); 
+    -fx-border-width: 0.12em;
+    -fx-border-style: solid;
+    -fx-border-color: #B2D8E2;
+    -fx-focus-color: #B2D8E2;
+}
+
+.button:disabled {
+    -fx-background: #718FA2;
+}
+
+.text-field {
+    -fx-cursor: text;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 0;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-color: #B2C2CD;
+    -fx-border-radius: 4;
+    -fx-padding: 4 5 4 5;
+    -fx-prompt-text-fill: #B2C2CD;
+    -fx-text-fill: #1c252c;
+    -fx-font: italic 16px "sans-serif";
+    -fx-min-height: 36;
+    -fx-max-height: 36;
+}
+
+.text-field:focused {
+    -fx-font: lighter 16px "sans-serif";
+    -fx-border-color: #00bceb;
+}
+
+.combo-box {
+    -fx-cursor: text;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 0;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-color: #B2C2CD;
+    -fx-border-radius: 4;
+    -fx-padding: 4 5 4 5;
+    -fx-font: lighter 14px "sans-serif";
+    -fx-text-fill: #1c252c;
+    -fx-min-height: 36;
+    -fx-max-height: 36;
+}
+
+.combo-box .arrow-button{
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+
+.combo-box:focused {
+    -fx-font: lighter 14px "sans-serif";
+    -fx-border-color: #00bceb;
+}
+
+.combo-box:focused .text-field{
+    -fx-font: lighter 14px "sans-serif";
+    -fx-border-color: transparent;
+}
+
+.date-picker {
+    -fx-cursor: text;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 0 0 0;
+    -fx-border-width: 1;
+    -fx-border-style: solid;
+    -fx-border-color: #B2C2CD;
+    -fx-border-radius: 4;
+    -fx-padding: 4 5 4 5;
+    -fx-font: lighter 14px "sans-serif";
+    -fx-text-fill: #1c252c;
+    -fx-min-height: 36;
+    -fx-max-height: 36;
+}
+
+.date-picker .text-field{
+    -fx-font: lighter 14px "sans-serif";
+    -fx-border-color: transparent;
+}
+
+.date-picker .arrow-button {
+    -fx-cursor: hand;
+    -fx-background-color: transparent;
+}
+
+.date-picker:focused {
+    -fx-font: lighter 14px "sans-serif";
+    -fx-border-color: #00bceb;
+}
+
+.scroll-pane{
+    -fx-background-color: #F8F9FC;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color: transparent;
+    -fx-font: 7px "sans-serif";
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #848484;
+    -fx-background-radius: 4em;
+}
+
+.scroll-pane .corner{
+    -fx-background-color: transparent;
+}
+
+.table-view {
+    -fx-font: 15px "sans-serif";
+    -fx-background-color: #F8F9FC;
+    -fx-text-fill: #1c252c;
+}
+
+.table-view .column-header{
+    -fx-font: bold 16px "sans-serif";
+    -fx-background-color: #E0E7EB;
+}
+
+.table-view .column-header .filler,
+.table-view .column-header-background,
+.table-view .column-header-background .filler{
+    -fx-background-color: #E0E7EB;
+}
+
+.increment-button,
+.decrement-button{
+    -fx-background-color: transparent;
+    -fx-opacity: 0;
+}
+
+.table-row-cell {
+    -fx-background-color: #ECF0F3;
+    -fx-font: normal 16px cursive;
+    -fx-text-fill: #1c252c;
+    -fx-cell-size: 24px;
+    -fx-alignment: center; 
+}
+
+.table-row-cell:odd {
+    -fx-background-color: transparent;
+    -fx-font: normal 16px cursive;
+    -fx-text-fill: #1c252c;
+    -fx-cell-size: 24px;
+    -fx-alignment: center; 
+}

@@ -1,0 +1,52 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 17, 2018, 12:18:23 PM
+    Author     : shivam
+*/
+
+#main {
+    -fx-background-color: #FFFFFF;
+}
+
+#main Line {
+    -fx-stroke: #AAAAAA;
+}
+
+.table-view {
+    -fx-font: 15px "sans-serif";
+    -fx-background-color: #FFFFFF;
+}
+
+.table-view .column-header{
+    -fx-font: bold 10px "sans-serif";
+    -fx-background-color: #444444;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #FFFFFF;
+}
+
+.table-view .column-header .filler,
+.table-view .column-header-background,
+.table-view .column-header-background .filler{
+    -fx-background-color: #444444;
+}
+
+.table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-font: normal 10px "Open Sans";
+    -fx-cell-size: 20px;
+    -fx-text-fill: #000000;
+}
+
+.table-cell {
+    -fx-alignment: CENTER_RIGHT;
+}
+
+#item {
+    -fx-alignment: CENTER_LEFT;
+}
