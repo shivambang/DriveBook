@@ -32,7 +32,7 @@ import java.io.Serializable;
  */
 class Employee implements Serializable, Unique {
     private static final long serialVersionUID = 2L;
-    private final Integer id;
+    private Integer id;
     private String name;
     private double sale, credit, debit;
     
@@ -41,7 +41,9 @@ class Employee implements Serializable, Unique {
         return null;
     }
     
-    
+    public Employee(){
+        
+    }
     Employee(int id, String name){
         this.id = id;
         this.name = name;

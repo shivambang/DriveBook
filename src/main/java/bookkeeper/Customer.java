@@ -35,10 +35,10 @@ import java.time.LocalDate;
  */
 public class Customer implements Serializable, Unique {
     private static final long serialVersionUID = 8L;
-    private final Integer id;
+    private Integer id;
     private String name;
-    private Integer city;
-    private Integer emp;
+    private Integer cityId;
+    private Integer empId;
     private Double credit, debit;
     private LocalDate opDate;
     private Double due;
@@ -49,7 +49,11 @@ public class Customer implements Serializable, Unique {
         return null;
     }
     
-        
+    public Customer() {
+        this.credit = 0.0;
+        this.debit = 0.0;
+    } 
+    
     public Customer(Integer id, String name) {
         this.id = id;
         this.name = name;
@@ -58,8 +62,8 @@ public class Customer implements Serializable, Unique {
     public Customer(Integer id, String name, City city, Employee emp, Double credit, Double debit, LocalDate opDate, Double due, Integer days) {
         this.id = id;
         this.name = name;
-        this.city = city.getId();
-        this.emp = emp.getId();
+        this.cityId = city.getId();
+        this.empId = emp.getId();
         this.credit = credit;
         this.debit = debit;
         this.opDate = opDate;
@@ -90,17 +94,17 @@ public class Customer implements Serializable, Unique {
     }
 
     public Integer getCityId() {
-        return city;
+        return cityId;
     }
     public City city() {
-        return city_map.get(city);
+        return city_map.get(cityId);
     }
 
     public Integer getEmpId() {
-        return emp;
+        return empId;
     }
     public Employee emp() {
-        return emp_map.get(emp);
+        return emp_map.get(empId);
     }
 
     public Double getCredit() {
@@ -114,6 +118,10 @@ public class Customer implements Serializable, Unique {
     public String getDate() {
         return opDate.toString();
     }
+    public void setDate(String opDate){
+        this.opDate = LocalDate.parse(opDate);
+    }
+    
     public LocalDate localDate(){
         return opDate;
     }

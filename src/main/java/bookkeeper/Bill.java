@@ -37,9 +37,9 @@ public class Bill implements Serializable, Unique {
     private int id, no;
     private int type; //True = Sale; False = Purchase;
     private LocalDate date;
-    private Integer cust;
-    private Integer emp;
-    private Integer ven;
+    private Integer custId;
+    private Integer empId;
+    private Integer venId;
     private ArrayList<Pair<Product, ArrayList<Double>>> prod;
     private double disc, netAmt;
     
@@ -48,12 +48,15 @@ public class Bill implements Serializable, Unique {
         return null;
     }
     
+    public Bill(){
+        
+    }
     public Bill(int id, LocalDate date, Employee emp, Customer cust, ArrayList<Pair<Product, ArrayList<Double>>> prod, double disc, double netAmt) {
         this.type = 1;
         this.id = id;
         this.date = date;
-        this.cust = cust.getId();
-        this.emp = emp.getId();
+        this.custId = cust.getId();
+        this.empId = emp.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -64,8 +67,8 @@ public class Bill implements Serializable, Unique {
         this.id = id;
         this.no = no;
         this.date = date;
-        this.cust = cust.getId();
-        this.emp = emp.getId();
+        this.custId = cust.getId();
+        this.empId = emp.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -75,7 +78,7 @@ public class Bill implements Serializable, Unique {
         this.type = 0;
         this.id = id;
         this.date = date;
-        this.ven = ven.getId();
+        this.venId = ven.getId();
         this.prod = prod;
         this.disc = disc;
         this.netAmt = netAmt;
@@ -94,10 +97,10 @@ public class Bill implements Serializable, Unique {
     }
 
     public Integer getVenId() {
-        return ven;
+        return venId;
     }
     public Vendor ven() {
-        return ven_map.get(ven);
+        return ven_map.get(venId);
     }
     
     @Override
@@ -112,23 +115,26 @@ public class Bill implements Serializable, Unique {
     public String getDate() {
         return date.toString();
     }
+    public void setDate(String date){
+        this.date = LocalDate.parse(date);
+    }
 
     public LocalDate localDate(){
         return date;
     }
     
     public Integer getCustId() {
-        return cust;
+        return custId;
     }
     public Customer cust()  {
-        return cust_map.get(cust);
+        return cust_map.get(custId);
     }
     
     public Integer getEmpId() {
-        return emp;
+        return empId;
     }
     public Employee emp() {
-        return emp_map.get(emp);
+        return emp_map.get(empId);
     }
 
     public ArrayList<Pair<Product, ArrayList<Double>>> getProd() {

@@ -23,21 +23,42 @@
  */
 package bookkeeper;
 
+import static bookkeeper.Data.bill_map;
+import static bookkeeper.Data.city_map;
+import static bookkeeper.Data.cust_map;
+import static bookkeeper.Data.emp_map;
+import static bookkeeper.Data.pay_map;
+import static bookkeeper.Data.prod_map;
+import static bookkeeper.Data.readData;
+import static bookkeeper.Data.update;
+import static bookkeeper.Data.updateData;
+import static bookkeeper.Data.ven_map;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -56,6 +77,7 @@ public class BookKeeper extends Application implements Initializable {
         scene.getStylesheets().add(this.getClass().getResource("/css/mainStyle.css").toExternalForm());
         stage.setScene(scene);
         stage.setMaximized(true);
+        stage.setTitle("DriveBook");
         stage.show();
     }
     @FXML
@@ -66,26 +88,23 @@ public class BookKeeper extends Application implements Initializable {
     
     @FXML
     private void submit(ActionEvent event) throws IOException{
+        Stage stage = (Stage)(submit.getScene().getWindow());
         if(user.getText().equalsIgnoreCase("admin") && pass.getText().equalsIgnoreCase("admin")) {
             try{
                 fc = new FirebaseController();
-                label.setText("Success!");
-                Stage stage = (Stage)(submit.getScene().getWindow());
                 stage.hide();
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/myBooks.fxml"));
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add(this.getClass().getResource("/css/myBooks.css").toExternalForm());
-                stage.setScene(scene);
-                stage.setMaximized(true);
-                stage.show();
-            }
-            catch(Exception ex){
+                initData();
+                (new MyBooks()).start(stage);
+
+            } catch(IOException ex){
                 label.setText("Could Not Connect!");
                 FadeTransition fader = new FadeTransition(Duration.seconds(2.5), label);
                 fader.setFromValue(1);
                 fader.setToValue(0);
                 new SequentialTransition(label, fader).play();
                 System.out.println(ex);
+            } catch (TimeoutException ex) {
+                stage.close();
             }
         } else {
             label.setText("Try Again!");
@@ -96,12 +115,71 @@ public class BookKeeper extends Application implements Initializable {
         }
     }
     
+    public void initData() throws TimeoutException  {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception{
+                readData();
+                updateProgress(0.2, 1);
+                try{
+                    update(Customer.class, cust_map);
+                    updateProgress(0.3, 1);
+                    update(City.class, city_map);
+                    updateProgress(0.4, 1);
+                    update(Employee.class, emp_map);
+                    updateProgress(0.5, 1);
+                    update(Product.class, prod_map);
+                    updateProgress(0.6, 1);
+                    update(Bill.class, bill_map);
+                    updateProgress(0.7, 1);
+                    update(Vendor.class, ven_map);
+                    updateProgress(0.8, 1);
+                    update(Payment.class, pay_map);
+                    updateProgress(0.9, 1);
+                }   catch(TimeoutException | InterruptedException | ExecutionException ex){
+                    System.out.println(ex);
+                    updateMessage("Update Failed! No Connection.");
+                    cancel();
+                    return null;
+                }
+                updateMessage("Finished");
+                updateProgress(1, 1);
+                return null;
+            }
+            @Override
+            protected void running(){
+                updateMessage("Updating... Please Wait");
+            }
+        };
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.titleProperty().bind(task.titleProperty());
+        alert.contentTextProperty().bind(task.messageProperty());
+
+        ProgressIndicator pIndicator = new ProgressIndicator();
+        pIndicator.progressProperty().bind(task.progressProperty());
+        alert.setGraphic(pIndicator);
+        alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        alert.getDialogPane().lookupButton(ButtonType.OK)
+                .disableProperty().bind(task.runningProperty());
+        
+        alert.getDialogPane().cursorProperty().bind(
+                Bindings.when(task.runningProperty())
+                    .then(Cursor.WAIT)
+                    .otherwise(Cursor.DEFAULT)
+        );
+        Thread t = new Thread(task);
+        t.setDaemon(true);
+        t.start();
+        alert.showAndWait();
+        if(task.isCancelled()) throw new TimeoutException();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     
     }    
-
+    
     public static void main(String[] args) {
         launch(args);
     }

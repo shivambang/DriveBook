@@ -36,13 +36,16 @@ public class Product implements Serializable, Unique {
     private int id;
     private String HSN, name;
     private Double vol, tax, pprice, sprice, stock;
-    private Integer vendor;
+    private Integer venId;
     
     @ServerTimestamp
     public Timestamp getTimestamp() {
         return null;
     }
     
+    public Product() {
+        this.stock = 0.0;
+    }
 
     public Product(int id, String name) {
         this.id = id;
@@ -59,7 +62,7 @@ public class Product implements Serializable, Unique {
         this.stock = 0.0;
     }
 
-    public Product(int id, String HSN, String name, Double vol, Double tax, Double pprice, Double sprice, Double stock, Vendor vendor) {
+    public Product(int id, String HSN, String name, Double vol, Double tax, Double pprice, Double sprice, Double stock, Vendor ven) {
         this.id = id;
         this.HSN = HSN;
         this.name = name;
@@ -68,7 +71,7 @@ public class Product implements Serializable, Unique {
         this.pprice = pprice;
         this.sprice = sprice;
         this.stock = stock;
-        this.vendor = vendor.getId();
+        this.venId = ven.getId();
     }
 
     public Product(int id, String HSN, String name, Double vol, Double tax, Double pprice, Double sprice, Vendor vendor) {
@@ -79,7 +82,7 @@ public class Product implements Serializable, Unique {
         this.tax = tax;
         this.pprice = pprice;
         this.sprice = sprice;
-        this.vendor = vendor.getId();
+        this.venId = vendor.getId();
         this.stock = 0.0;
     }
 
@@ -118,10 +121,10 @@ public class Product implements Serializable, Unique {
     }
 
     public Integer getVenId() {
-        return vendor;
+        return venId;
     }
     public Vendor ven() {
-        return ven_map.get(vendor);
+        return ven_map.get(venId);
     }
     public String getHSN() {
         return HSN;

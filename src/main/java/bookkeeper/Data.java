@@ -23,6 +23,12 @@
  */
 package bookkeeper;
 
+import static bookkeeper.FirebaseController.db;
+import com.google.api.core.ApiFuture;
+import com.google.cloud.Timestamp;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,9 +37,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author shivam
@@ -54,6 +67,7 @@ public class Data {
     public static HashMap<Integer, Bill> bill_map = new HashMap<>();
     public static HashMap<Integer, Vendor> ven_map = new HashMap<>();
     public static HashMap<Integer, Payment> pay_map = new HashMap<>();
+    public static HashMap<String, Timestamp> sync_map = new HashMap<>();
     
     public static <T extends Unique> HashMap<Integer, T> read(Class<T> c){
         String s = c.toString();
@@ -107,6 +121,53 @@ public class Data {
         out.close();
     }
     
+    public static <T extends Unique> void update(Class<T> c, Map<Integer, T> map) throws InterruptedException, ExecutionException, TimeoutException{
+        String s = c.toString();
+        s = s.substring(s.indexOf('.')+1);
+        Timestamp time;
+        File file;
+        FileInputStream inp;
+        FileOutputStream out;
+        ObjectInputStream readObj;
+        ObjectOutputStream writeObj;
+        file = new File(System.getProperty("user.dir")+"\\data\\");
+        if(!file.exists())  file.mkdir();
+        file = new File(System.getProperty("user.dir")+"\\data\\"+"sync.txt");
+        try{
+        if(file.createNewFile())    time = Timestamp.MIN_VALUE;
+        else{
+            try {
+                inp = new FileInputStream(file);
+                readObj = new ObjectInputStream(inp);
+                ((HashMap<String, Timestamp>) readObj.readObject())
+                        .forEach((K, V) -> {  sync_map.put(K, V);  });
+                time = sync_map.getOrDefault(s, Timestamp.MIN_VALUE);
+                readObj.close();
+                inp.close();
+            } catch (EOFException | ClassNotFoundException ex) {
+                time = Timestamp.MIN_VALUE;
+            }
+        }
+        ApiFuture<QuerySnapshot> future = db.collection(s).whereGreaterThan("timestamp", time).orderBy("timestamp").get();
+        List<QueryDocumentSnapshot> documents = future.get(120, TimeUnit.SECONDS).getDocuments();
+        for(DocumentSnapshot document: documents) {
+            map.put(Integer.parseInt(document.getId()), document.toObject(c));
+            Object obj = document.get("timestamp");
+            time = obj.getClass().equals(time.getClass()) ? (Timestamp)obj : Timestamp.of((Date)obj);
+        }
+        
+        sync_map.put(s, time);
+        out = new FileOutputStream(file, false);
+        writeObj = new ObjectOutputStream(out);
+        writeObj.writeObject(sync_map);
+        writeObj.close();
+        out.close();
+        write(c, map);
+        }   catch(IOException ex){ 
+            System.out.println(ex);
+        }
+    }
+    
     public static void readData(){
         SortedSet<Integer> set;
         cust_map = read(Customer.class);
@@ -138,7 +199,16 @@ public class Data {
         pay = new ArrayList<>(pay_map.values());
         set = new TreeSet<>(pay_map.keySet());
         payid = new ArrayList<>(set);
-
+    }
+    
+    public static void updateData() throws InterruptedException, ExecutionException, TimeoutException  {
+        update(Customer.class, cust_map);
+        update(City.class, city_map);
+        update(Employee.class, emp_map);
+        update(Product.class, prod_map);
+        update(Bill.class, bill_map);
+        update(Vendor.class, ven_map);
+        update(Payment.class, pay_map);
     }
     
     public static void setData(){

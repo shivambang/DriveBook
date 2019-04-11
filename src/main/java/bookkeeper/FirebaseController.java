@@ -17,6 +17,7 @@
  */
 package bookkeeper;
 
+import static bookkeeper.Data.sync_map;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.Timestamp;
@@ -56,13 +57,7 @@ public class FirebaseController {
         .setConnectTimeout(5000)
         .build();
         FirebaseApp.initializeApp(options);
-
         db = FirestoreClient.getFirestore();
-        try {
-            test();
-        } catch (Exception ex) {
-            Logger.getLogger(FirebaseController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public <K, V> void write(K col, V doc) throws InterruptedException, ExecutionException, TimeoutException {
@@ -71,10 +66,14 @@ public class FirebaseController {
         try{
             Timestamp t = result.get(10, TimeUnit.SECONDS).getUpdateTime();
             System.out.println("Update time : " + t.toDate());
+            sync_map.put(doc.getClass().getSimpleName(), t);
             File file = new File(System.getProperty("user.dir")+"\\data\\sync.txt");
             file.createNewFile();
-            ObjectOutputStream writeObj = new ObjectOutputStream(new FileOutputStream(file, true));
-            writeObj.writeObject(t);
+            FileOutputStream out = new FileOutputStream(file, false);
+            ObjectOutputStream writeObj = new ObjectOutputStream(out);
+            writeObj.writeObject(sync_map);
+            writeObj.close();
+            out.close();
         } catch(TimeoutException ex){
             result.cancel(true);
             throw new TimeoutException();

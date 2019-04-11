@@ -33,19 +33,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
         
-public class MyBooks implements Initializable{
+public class MyBooks extends Application implements Initializable{
     
     public static int cid, vid;
     public static LocalDate date;
@@ -329,7 +339,7 @@ public class MyBooks implements Initializable{
         
   
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)  {
         
         sBill = sbill;
         sCus = scus;
@@ -344,8 +354,6 @@ public class MyBooks implements Initializable{
         collapse();
         //hide();
                 
-        readData();
-        
         cust_map.put(0, new Customer(0, "ALL"));
         emp_map.put(0, new Employee(0, "ALL"));
         city_map.put(0, new City(0, "ALL"));
@@ -354,5 +362,16 @@ public class MyBooks implements Initializable{
         
         setData();
     }
-    
+
+    @Override
+    public void start(Stage stage) throws IOException{
+        stage.hide();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/myBooks.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(this.getClass().getResource("/css/myBooks.css").toExternalForm());
+        stage.setScene(scene);
+        stage.setMaximized(true);
+        stage.show();
+    }
+
 }

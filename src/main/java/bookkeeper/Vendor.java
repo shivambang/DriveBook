@@ -42,6 +42,10 @@ public class Vendor implements Serializable, Unique {
         return null;
     }
     
+    public Vendor() {
+        this.credit = 0.0;
+        this.debit = 0.0;
+    }
     
     public Vendor(int id, String name) {
         this.id = id;

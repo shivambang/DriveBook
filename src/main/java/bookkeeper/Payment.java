@@ -40,8 +40,8 @@ public class Payment implements Unique, Serializable {
     private boolean type;
     private Integer id, no;
     private LocalDate date;
-    private Integer emp;
-    private Integer ven;
+    private Integer empId;
+    private Integer venId;
     private ArrayList<Pair<Customer, Pair<Double, String>>> pay;
     private String part;
     private Double netAmt;
@@ -51,13 +51,16 @@ public class Payment implements Unique, Serializable {
         return null;
     }
     
+    public Payment() {
+        
+    }
 
     public Payment(Integer id, Integer no, LocalDate date, Employee emp, ArrayList<Pair<Customer, Pair<Double, String>>> pay, Double netAmt) {
         this.id = id;
         this.no = no;
         this.date = date;
         this.netAmt = netAmt;
-        this.emp = emp.getId();
+        this.empId = emp.getId();
         this.pay = pay;
         this.type = true;
     }
@@ -65,7 +68,7 @@ public class Payment implements Unique, Serializable {
     public Payment(Integer id, LocalDate date, Vendor ven, Double netAmt, String part) {
         this.id = id;
         this.date = date;
-        this.ven = ven.getId();
+        this.venId = ven.getId();
         this.netAmt = netAmt;
         this.part = part;
         this.type = false;
@@ -90,15 +93,19 @@ public class Payment implements Unique, Serializable {
     public String getDate() {
         return date.toString();
     }
+    public void setDate(String date){
+        this.date = LocalDate.parse(date);
+    }
+    
     public LocalDate localDate(){
         return date;
     }
 
     public Integer getVenId() {
-        return ven;
+        return venId;
     }
     public Vendor ven() {
-        return ven_map.get(ven);
+        return ven_map.get(venId);
     }
 
     public String getPart() {
@@ -110,10 +117,10 @@ public class Payment implements Unique, Serializable {
     }
 
     public Integer getEmpId() {
-        return emp;
+        return empId;
     }
     public Employee emp() {
-        return emp_map.get(emp);
+        return emp_map.get(empId);
     }
 
     public ArrayList<Pair<Customer, Pair<Double, String>>> getPay() {
